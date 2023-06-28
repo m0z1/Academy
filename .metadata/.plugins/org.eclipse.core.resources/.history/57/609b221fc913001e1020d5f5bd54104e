@@ -1,0 +1,26 @@
+package com.myspring.model;
+
+import java.util.HashMap;
+import java.util.List;
+
+public class GuestServiceImpl implements GuestService {
+
+	@Override
+	public void guestInsert(Guest guest) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Guest> guestList(HashMap<String, String> hm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int guestCount(HashMap<String, String> hm) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

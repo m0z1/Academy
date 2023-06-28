@@ -1,0 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>Guest List</h2>
+<br/><br/>
+<c:forEach items="${guestlist }" var="person">
+	이름 : ${person.name }<br/>
+	아이디 :<a href="view?id=${guest.id }">${guest.id }</a> <br/>
+	성별  : ${guest.gender }<br/>
+	직업  : ${guest.job }
+</c:forEach>
+</body>
+</html>

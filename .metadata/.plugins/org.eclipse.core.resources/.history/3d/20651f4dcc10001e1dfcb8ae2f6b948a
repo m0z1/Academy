@@ -1,0 +1,43 @@
+package com.person2.model;
+
+import java.util.List;
+
+public class Person2DAOImpl implements Person2DAO{
+
+	@Override
+	public void person_insert(Person2 person) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Person2> person_list() {
+		String sql="select * from person";
+		return null;
+	}
+
+	@Override
+	public Person2 person_view(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void person_update(Person2 person) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void person_delete(String id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int person_count() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

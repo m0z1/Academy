@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="SpringProject04_Mybatis"/>
+<aop-project name="SpringProject05_Guest"/>
+<aop-project name="SpringProject06_Guest"/>
+<aop-project name="SpringProject03"/>
+<aop-project name="SpringProject01"/>
+</aop-reference-model>

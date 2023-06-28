@@ -1,0 +1,5 @@
+package com.person2.model;
+
+public interface Person2DAO {
+
+}

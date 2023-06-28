@@ -1,0 +1,5 @@
+package com.person2.model;
+
+public class Person2DAOImpl {
+
+}
