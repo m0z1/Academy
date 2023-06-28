@@ -13,10 +13,13 @@
 			</if>
 		</where>
 	</sql>
-	<select id="findAll" resultType="com.myboard.dto.BoardDTO">
+	<select id="findAll" 
+	resultType="com.myboard.dto.BoardDTO">
 		select * from board
 		<include refid="search"></include>
+		order by num desc limit #{pageStart}, #{pageSize}
 	</select>
+	
 	<select id="getCount" resultType="int">
 	select count(*) from board
 	<include refid="search"></include>

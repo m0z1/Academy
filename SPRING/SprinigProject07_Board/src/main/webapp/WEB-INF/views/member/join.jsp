@@ -16,6 +16,7 @@
 			</div>
 			<div class="col align-self-end">
 			<!-- 	<button type="button" class="btn btn-primary" id="idCheckBtn">중복확인</button> -->
+			<span id="idcheck"></span>
 			</div>
 		</div>
 		<div class="form-group">
@@ -64,6 +65,32 @@ $("#btnJoin").click(function(){
 		$("#addr").focus();
 		return false;
 	}
+	data = {
+			id : $("#id").val(),
+			name : $("#name").val(),
+			pass : $("#pass").val(),
+			addr : $("#addr").val()
+	}
+   $.ajax({
+	   type: "post",
+	   url: "/member/join",
+	   contentType : "application/json;charset=utf-8",
+	   data:JSON.stringify(data)
+   })
+   .done(function(resp){
+	   if(resp=="success"){
+		   alert("회원가입을 축하합니다.")
+		   $("#idcheck").html("")
+		   location.href="login"
+	   }else if(resp=="fail"){
+		  // alert("아이디 중복확인 하세요")
+		  $("#idcheck").html("<b>아이디 중복확인 하세요</b>")
+		  $("#id").val("");
+	   }
+   })
+   .fail(function(e){
+	   alert("회원가입실패")
+   })
 })
 
 </script>

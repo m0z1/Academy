@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.myboard.dto.BoardDTO;
+import com.myboard.dto.PageVO;
 import com.myboard.model.BoardService;
 
 /**
@@ -52,18 +53,27 @@ public class HomeController {
 	public String list(Model model, String pageNum,
 			@RequestParam(name = "field", defaultValue = "") String field,
 			@RequestParam(name = "word", defaultValue = "")String word) {
+		
+		int currentPage = pageNum==null ? 1: Integer.parseInt(pageNum);
+		int  pageSize = 5;
 			
 		HashMap<String, Object> hm = new HashMap<String, Object>();
 		hm.put("field", field);
 		hm.put("word", word);
+		hm.put("pageStart", (currentPage-1)*pageSize);
+		hm.put("pageSize", pageSize);
 			
 		List<BoardDTO> boards = bserivce.findAll(hm);
 		int count = bserivce.getCount(hm);
+		PageVO page = new PageVO(count, currentPage, pageSize);
+		page.setField(field);
+		page.setWord(word);
 		
+		model.addAttribute("rowNo", count-((currentPage-1)*pageSize));
 		model.addAttribute("boards", boards);
 		model.addAttribute("count", count);
-
-		
+		model.addAttribute("p", page);
+	
 		return "boardList";
 	}
 	//상세보기
