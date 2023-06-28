@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 INDEX VERSION 1.131+C:\SpringProject\.metadata\.plugins\org.eclipse.jdt.core
 1573042676.index
 1194954469.index
@@ -44,3 +45,7 @@ INDEX VERSION 1.131+C:\SpringProject\.metadata\.plugins\org.eclipse.jdt.core
 3093129805.index
 1450860804.index
 1036027883.index
+=======
+INDEX VERSION 1.131+C:\spring\springproject\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
+>>>>>>> 91d3bb6 (2023_06_28_10_26)

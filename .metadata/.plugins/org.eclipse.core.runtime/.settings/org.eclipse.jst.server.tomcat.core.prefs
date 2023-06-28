@@ -1,2 +1,6 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
 locationorg.eclipse.jst.server.tomcat.runtime.90=C\:/Users/9818m/Desktop/doc/apache-tomcat-9.0.75-windows-x64/apache-tomcat-9.0.75
+=======
+locationorg.eclipse.jst.server.tomcat.runtime.90=C\:/Users/it/Desktop/apache-tomcat-9.0.75-windows-x64/apache-tomcat-9.0.75
+>>>>>>> 91d3bb6 (2023_06_28_10_26)

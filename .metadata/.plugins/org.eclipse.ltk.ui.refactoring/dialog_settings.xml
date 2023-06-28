@@ -4,9 +4,12 @@
 		<item key="width" value="600"/>
 		<item key="height" value="400"/>
 	</section>
+<<<<<<< HEAD
 	<section name="RefactoringStatusDialog">
 		<item key="DIALOG_WIDTH" value="813"/>
 		<item key="DIALOG_HEIGHT" value="485"/>
 		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-24|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
 	</section>
+=======
+>>>>>>> 91d3bb6 (2023_06_28_10_26)
 </section>

@@ -108,9 +108,13 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+<<<<<<< HEAD
 			<item value="C:\Users\9818m\Desktop\SpringProject06_Guest"/>
 			<item value="C:\SpringProject\SpringProject04_Mybatis"/>
 			<item value="C:\SpringProject\SpringProject01"/>
+=======
+			<item value="C:\Users\it\Desktop\SpringProject06_Guest"/>
+>>>>>>> 91d3bb6 (2023_06_28_10_26)
 		</list>
 	</section>
 </section>

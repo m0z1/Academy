@@ -40,4 +40,8 @@
   </root>
 
   <logger name="com.ning.http.client" level="INFO" />
+<<<<<<< HEAD
+=======
+<logger name="net.schmizz" level="OFF" />
+>>>>>>> 91d3bb6 (2023_06_28_10_26)
 </configuration>

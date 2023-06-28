@@ -1,0 +1,18 @@
+//상세보기
+	public Person personView(String id) {
+		String sql="select * from person where id='"+id+"'";
+		Person person=template.queryForObject(sql, new RowMapper<Person>(){
+
+			public Person mapRow(ResultSet rs, int arg1) throws SQLException {
+				Person p=new Person();
+				p.setGender(rs.getString("gender"));
+				p.setId(rs.getString("id"));
+				p.setJob(rs.getString("job"));
+				p.setName(rs.getString("name"));
+				p.setPassword(rs.getString("password"));
+				return p;
+			}
+		
+		});
+		return person;
+	}
