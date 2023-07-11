@@ -11,8 +11,8 @@
 		</div>
 		<div class="form-group">
 			<label for="writer">writer:</label> <input type="text"
-				class="form-control" id="writer" placeholder="Enter writer"
-				name="writer">
+				class="form-control" id="writer"  readonly="readonly"
+				name="writer" value="${sMember.id }">
 		</div>
 
 		<div class="form-group">

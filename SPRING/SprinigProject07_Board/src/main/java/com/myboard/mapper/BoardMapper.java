@@ -5,11 +5,13 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.myboard.dto.BoardDTO;
-
+@Mapper
 public interface BoardMapper {
 	//추가
 	@Insert("insert into board(title, writer, content) values(#{title}, #{writer},#{content})")
@@ -32,4 +34,10 @@ public interface BoardMapper {
   //조회수 증가
 	@Update("update board set hitcount = hitcount+1 where num=#{num}")
 	public void upReadCount(int num);
+	//replyCnt 증감
+	@Update("update board set "
+			+ " replyCnt = replyCnt+#{amount} where num=#{bnum}")
+	public void replyCnt(@Param("bnum") int  bnum, 
+			@Param("amount") int amount);
+	
 }

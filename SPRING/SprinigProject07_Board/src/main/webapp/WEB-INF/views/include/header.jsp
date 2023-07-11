@@ -23,25 +23,32 @@
 
 		<div class="container">
 			<!-- Brand/logo -->
-			<a class="navbar-brand" href="/list">HOME(Board)</a>
+			<a class="navbar-brand" href="/">HOME(Board)</a>
 
 			<!-- Links -->
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item"><a class="nav-link" href="/">BoardInsert</a>
+				<li class="nav-item"><a class="nav-link" href="/insert">BoardInsert</a>
 				</li>
-				<li class="nav-item"><a class="nav-link" href="/product/plist">ProductList</a>
+				<li class="nav-item"><a class="nav-link" href="/uploadFile">FileInsert</a>
 				</li>
-				<c:if test="${sessionScope.suser.admin==1 }">
-					<li class="nav-item"><a class="nav-link" href="">회원목록</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="/product/pinsert">상품등록</a></li>
-				</c:if>
 			</ul>
+
 			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link" href="/member/login">로그인</a>
-				</li>
-				<li class="nav-item"><a class="nav-link" href="/member/join">회원가입</a>
-				</li>
+				<c:choose>
+					<c:when test="${empty sessionScope.sMember }">
+						<li class="nav-item"><a class="nav-link" href="/member/login">로그인</a>
+						</li>
+						<li class="nav-item"><a class="nav-link" href="/member/join">회원가입</a>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li class="nav-item"><a class="nav-link"
+							href="/member/logout">로그아웃(${sessionScope.sMember.name })</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/member/update">회원변경</a></li>
+
+					</c:otherwise>
+				</c:choose>
 			</ul>
 		</div>
 	</nav>

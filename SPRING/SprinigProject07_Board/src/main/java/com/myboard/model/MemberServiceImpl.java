@@ -22,14 +22,12 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public MemberDTO loginCheck(String id) {
-		// TODO Auto-generated method stub
-		return null;
+			return mMapper.loginCheck(id);
 	}
 
 	@Override
 	public void update(MemberDTO member) {
-		// TODO Auto-generated method stub
-		
+		mMapper.update(member);		
 	}
 
 }

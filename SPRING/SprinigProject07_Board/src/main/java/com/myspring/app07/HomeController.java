@@ -39,17 +39,22 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+//	@RequestMapping(value = "/", method = RequestMethod.GET)
+//	public String home(Locale locale, Model model) {
+//		return "redirect:list";
+//	}
+	//Ãß°¡Æû
+	@GetMapping("insert")
+	public String insert() {
 		return "boardInsert";
 	}
-	
+	//Ãß°¡
 	@PostMapping("insert")
 	public String insert(BoardDTO board) {
 		bserivce.insert(board);
 		return "redirect:list";
 	}
-	@GetMapping("list")
+	@GetMapping({"/", "list"})
 	public String list(Model model, String pageNum,
 			@RequestParam(name = "field", defaultValue = "") String field,
 			@RequestParam(name = "word", defaultValue = "")String word) {
