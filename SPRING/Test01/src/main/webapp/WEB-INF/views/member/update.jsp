@@ -68,5 +68,21 @@ $("#btnModify").click(function(){
    })
 })
 
+$("#btnDel").click(function(){
+	if(!confirm('정말 탈퇴할까요?'))
+		 return false; 
+	$.ajax({
+		type: "delte",
+		url : "/delete/${member.id}",
+		success:function(resp){
+			alert("탈퇴 성공");
+			location.href="/list"
+		},
+		error : function(e){
+			alert("탈퇴 실패 : " + e)
+		}
+	})  //ajax
+})//btnDelete
+
 </script>
 <%@ include file="../include/footer.jsp"%>

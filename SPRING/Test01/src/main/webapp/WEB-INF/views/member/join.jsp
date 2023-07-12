@@ -3,15 +3,15 @@
 
 <%@ include file="../include/header.jsp"%>
 <div class="container">
-	<form  id="frm" method="post">
+	<form action="join" id="frm" method="post">
 		<div class="form-group">
 			<label for="name">Name:</label> <input type="text"
-				class="form-control" id="name"  value ="${sMember.name}" name="name">
+				class="form-control" id="name" placeholder="Enter Name" name="name">
 		</div>
 		<div class="row">
 			<div class="col">
 				<label for="id">UserID:</label> <input type="text"
-					class="form-control" id="id" value="${sMember.id}" readonly="readonly"
+					class="form-control" id="id" placeholder="Enter UserID"
 					name="id" >
 			</div>
 			<div class="col align-self-end">
@@ -21,7 +21,7 @@
 		</div>
 		<div class="form-group">
 			<label for="pass">Password:</label> <input type="password"
-				class="form-control" id="pass" value="${sMember.pass}"
+				class="form-control" id="pass" placeholder="Enter password"
 				name="pass">
 		</div>
 		<div class="form-group">
@@ -31,40 +31,63 @@
 		</div>
 		<div class="form-group">
 			<label for="addr">Address:</label> <input type="text"
-				class="form-control" id="addr" value="${sMember.addr}"
+				class="form-control" id="addr" placeholder="Enter Address"
 				name="addr">
 		</div>
-		<button type="button" class="btn btn-primary" id="btnModify">수정하기</button>
-		<button type="button" class="btn btn-primary" id="btnDel">탈퇴하기</button>
+		<button type="button" class="btn btn-primary" id="btnJoin">회원가입</button>
 	</form>
 </div>
 <script>
-$("#btnModify").click(function(){
+$("#btnJoin").click(function(){
+	if($("#name").val()==""){
+		alert("이름을 입력하세요");
+		$("#name").focus();
+		return false;
+	}
+	if($("#id").val()==""){
+		alert("아이디를 입력하세요");
+		$("#id").focus();
+		return false;
+	}
+	if($("#pass").val()==""){
+		alert("비밀번호를 입력하세요");
+		$("#pass").focus();
+		return false;
+	}
 	if($("#pass").val()!=$("#pass_check").val()){
 		alert("비번이 맞지 않습니다.");
 		$("#pass_check").focus();
 		return false;
 	}
-	let data = {
+	if($("#addr").val()==""){
+		alert("주소를 입력하세요");
+		$("#addr").focus();
+		return false;
+	}
+	data = {
 			id : $("#id").val(),
 			name : $("#name").val(),
 			pass : $("#pass").val(),
 			addr : $("#addr").val()
 	}
    $.ajax({
-	   type: "put",
-	   url: "/member/update",
+	   type: "post",
+	   url: "/member/join",
 	   contentType : "application/json;charset=utf-8",
 	   data:JSON.stringify(data)
    })
    .done(function(resp){
 	   if(resp=="success"){
-		   alert("회원변경 성공")
+		   alert("회원가입 완료.")
+		   $("#idcheck").html("")
 		   location.href="login"
+	   }else if(resp=="fail"){
+		  $("#idcheck").html("ID 중복확인")
+		  $("#id").val("");
 	   }
    })
    .fail(function(e){
-	   alert("회원변경실패")
+	   alert("회원가입 실패")
    })
 })
 

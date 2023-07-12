@@ -39,14 +39,8 @@
 	
 	<tx:annotation-driven/>
 	
-	<mybatis-spring:scan base-package="com.myboard.mapper"/>
-	<context:component-scan base-package="com.myboard.model" />
+	<mybatis-spring:scan base-package="com.test.mapper"/>
+	<context:component-scan base-package="com.test." />
 </beans>
-
-
-
-
-
-
 
 
