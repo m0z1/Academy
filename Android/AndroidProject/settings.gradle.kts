@@ -17,3 +17,4 @@ rootProject.name = "My Application"
 include(":app")
 include(":myapp05")
 include(":myapp06")
+include(":myapp07")

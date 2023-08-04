@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
-    tools:context=".MainActivity6_output">
+    tools:context=".MainActivity2_output">
 
     <TextView
         android:id="@+id/tvDisplay"
@@ -18,8 +19,8 @@
         android:id="@+id/tvDisplay2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="학생 입력 결과"
-        android:textSize="45sp"/>
+        android:text="입력 결과"
+        android:textSize="40sp"/>
 
     <Button
         android:id="@+id/Back"
@@ -28,4 +29,5 @@
         android:text="돌아가기"
         android:textSize="15sp"
         android:layout_margin="30dp"/>
+
 </LinearLayout>

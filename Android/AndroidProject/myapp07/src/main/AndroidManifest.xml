@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,16 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".MainActivity6_std"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity6_output"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity6_input"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity6"
+            android:name=".MainActivity7_grid"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,8 +22,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity5_sub"
-            android:exported="false" />
+            android:name=".MainActivity6_list"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MainActivity5"
             android:exported="true">
@@ -39,9 +40,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity4_sub"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity4"
             android:exported="true">
             <intent-filter>
@@ -50,9 +48,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity3_sub"
-            android:exported="false" />
         <activity
             android:name=".MainActivity3"
             android:exported="true">
@@ -63,6 +58,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".MainActivity2_obj"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity2_output"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity2_Stu"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity2"
             android:exported="true">
             <intent-filter>
@@ -72,13 +76,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FourthActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ThirdActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SecondActivity"
+            android:name=".MainActivity_sub"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
