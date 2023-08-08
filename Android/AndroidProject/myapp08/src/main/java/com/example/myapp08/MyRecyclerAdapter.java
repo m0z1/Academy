@@ -15,6 +15,29 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
 
     private ArrayList<FriendItem> mFriendList;
 
+    public interface onItemClickListener{
+        void onItemClick(int pos);
+    }
+    public void delete(int pos){
+        mFriendList.remove(pos);
+        notifyDataSetChanged();
+    }
+    public interface  onLongItemClickListener{
+        void onLongItemClick(int pos);
+    }
+        private interface onitemLongClickListener{
+
+        }
+    private onItemClickListener onItemClickListener;
+    private onLongItemClickListener onLongItemClickListener;
+
+    public void setOnItemClickListener(MyRecyclerAdapter.onItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setOnLongItemClickListener(MyRecyclerAdapter.onLongItemClickListener onLongItemClickListener) {
+        this.onLongItemClickListener = onLongItemClickListener;
+    }
     @NonNull
     @Override
     public MyRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,7 +71,25 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             profile = (ImageView) itemView.findViewById(R.id.profile);
             name = (TextView) itemView.findViewById(R.id.name);
             message = (TextView) itemView.findViewById(R.id.message);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos = getAdapterPosition();
+                    onItemClickListener.onItemClick(pos);
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    int pos = getAdapterPosition();
+                    onLongItemClickListener.onLongItemClick(pos);
+                    return false;
+                }
+            });
         }
+
 
         void onBind(FriendItem item){
             profile.setImageResource(item.getResourceId());
