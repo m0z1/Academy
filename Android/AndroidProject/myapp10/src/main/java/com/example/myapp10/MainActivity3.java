@@ -22,7 +22,7 @@ public class MainActivity3 extends AppCompatActivity {
         Button btnInsert = findViewById(R.id.btnInsert);
         EditText edit = findViewById(R.id.Edit);
         DatePicker date = findViewById(R.id.Date);
-        
+
     }
 
     public class MyDBHelper extends SQLiteOpenHelper {
