@@ -29,22 +29,28 @@ public class MainActivity3 extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recycler);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
-        ArrayList<Photo> photoList = new ArrayList<>();
+
+
+
+
+
         recyclerView.setLayoutManager(linearLayoutManager);
-        PhotoAdapter photoAdapter = new PhotoAdapter(photoList);
-
-        recyclerView.setAdapter(photoAdapter);
-
         btnPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                ArrayList<Photo> photoList = new ArrayList<>();
+                PhotoAdapter photoAdapter = new PhotoAdapter(photoList);
+                recyclerView.setAdapter(photoAdapter);
+
+
                 photoInterface = PhotoClient.getClient().create(PhotoInterface.class);
                Call<List<Photo>> call =  photoInterface.doGetPhotos();
                call.enqueue(new Callback<List<Photo>>() {
                    @Override
                    public void onResponse(Call<List<Photo>> call, Response<List<Photo>> response) {
                        List<Photo> resource = response.body();
-                       Log.d("test111" , resource.size() +"");
+
 
                        for(Photo photo : resource){
                            photoList.add(photo);
@@ -59,6 +65,35 @@ public class MainActivity3 extends AppCompatActivity {
 
                    }
                });
+            }
+        });
+
+        btnPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ArrayList<Post> postList = new ArrayList<>(); //post
+                PostAdapter postAdapter = new PostAdapter(postList); //post
+                recyclerView.setAdapter(postAdapter); //post
+
+                photoInterface = PhotoClient.getClient().create(PhotoInterface.class);
+                Call<List<Post>> call = photoInterface.doGetPosts();
+                call.enqueue(new Callback<List<Post>>() {
+                    @Override
+                    public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                        List<Post> resource = response.body();
+
+                        for(Post post : resource) {
+                            postList.add(post);
+                        }
+                        postAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Post>> call, Throwable t) {
+
+                    }
+                });
             }
         });
     }
