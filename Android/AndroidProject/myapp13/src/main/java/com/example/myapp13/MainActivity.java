@@ -79,7 +79,9 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<Phone> call, Response<Phone> response) {
                                 phoneAdapter.addItem(p);
+                                phoneAdapter.notifyDataSetChanged();
                             }
+
 
                             @Override
                             public void onFailure(Call<Phone> call, Throwable t) {
