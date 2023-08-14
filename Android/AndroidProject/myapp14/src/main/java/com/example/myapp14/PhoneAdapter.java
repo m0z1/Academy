@@ -58,7 +58,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.PhoneViewHol
     public PhoneAdapter.PhoneViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
       View view = LayoutInflater.from(parent.getContext())
                .inflate(R.layout.phone_list,parent,false);
-      ;
+
       PhoneViewHolder phoneViewHolder = new PhoneViewHolder(view);
       return phoneViewHolder;
 
