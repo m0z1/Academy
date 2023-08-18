@@ -20,6 +20,11 @@ public class Missing extends AppCompatActivity {
         ImageView missingImg = findViewById(R.id.missing);
         Button writeMissing = findViewById(R.id.writeMissing);
 
+
+
+
+
+
         missingImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -34,6 +34,7 @@ public class FindBoard {
 	private String petgender;
 	private String petcharacter;
 	private String petcategory;
+	private String findaddr;
 	
 	@ManyToOne
 	@JoinColumn(name = "member_id")

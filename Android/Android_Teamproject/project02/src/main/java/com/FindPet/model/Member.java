@@ -24,14 +24,5 @@ public class Member {
 	private String tel;
 	private String admin;
 	
-	@Column(name = "member_address")
-	private String memberAddress;
-	@Column(name = "member_detail_address")
-	private String memberDetailAddress;
-	@Column(name = "member_extra_address")
-	private String memberExtraAddress;
-	@Column(name = "member_zipcode")
-	private String memberZipcode;
-	@Column(name = "member_sigungu")
-	private String memberSigungu;
+
 }

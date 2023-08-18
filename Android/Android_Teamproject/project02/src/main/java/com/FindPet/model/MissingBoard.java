@@ -34,6 +34,7 @@ public class MissingBoard {
 	private String petgender;
 	private String petcharacter;
 	private String petcategory;
+	private String missingaddr;
 	
 	@ManyToOne
 	@JoinColumn(name = "member_id")

@@ -5,29 +5,27 @@ import java.awt.print.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.FindPet.model.FindBoard;
-import com.FindPet.service.FindBoardService;
+import com.FindPet.model.MissingBoard;
+import com.FindPet.service.MissingBoardService;
 
 import lombok.RequiredArgsConstructor;
 
-@RestController
 @RequiredArgsConstructor
-@RequestMapping("/findBoard/*")
-public class FindBoardController {
+@RequestMapping("/missingBoard/*")
+@RestController
+public class MissingBoardController {
+	private final MissingBoardService missingBoardService; // 2023-08-18 add
 	
-	private final FindBoardService findBoardService; // 2023-08-18 add
 	
-	
-	/* Find Search & List - 2023-08-18 */
+	/* Missing  Search & List - 2023-08-18 */
 	
 	@GetMapping("list")
-	public Page<FindBoard> Find_list(Pageable pageable){
-		return findBoardService.Find_list(pageable);
+	public Page<MissingBoard> Missing_List(Pageable pageable){
+		return missingBoardService.Missing_list(pageable);
 	}
 	
 	@GetMapping("findDog")
@@ -35,7 +33,7 @@ public class FindBoardController {
 			@RequestParam(required = false, defaultValue = "") String field,
 			@RequestParam(required = false, defaultValue = "") String word) {
 		
-		findBoardService.dog_find_list(pageable, field, word);
+		missingBoardService.dog_find_list(pageable, field, word);
 	}
 	
 	
@@ -44,7 +42,7 @@ public class FindBoardController {
 			@RequestParam(required = false, defaultValue = "") String field,
 			@RequestParam(required = false, defaultValue = "") String word) {
 		
-		findBoardService.cat_find_list(pageable, field, word);
+		missingBoardService.cat_find_list(pageable, field, word);
 	}
 	
 	@GetMapping("findEtc")
@@ -52,10 +50,11 @@ public class FindBoardController {
 			@RequestParam(required = false, defaultValue = "") String field,
 			@RequestParam(required = false, defaultValue = "") String word) {
 		
-		findBoardService.etc_find_list(pageable, field, word);
+		missingBoardService.etc_find_list(pageable, field, word);
 	}
 	
 	/* -----------------------------------------------------------------------------*/
 
-
+	
+	
 }
