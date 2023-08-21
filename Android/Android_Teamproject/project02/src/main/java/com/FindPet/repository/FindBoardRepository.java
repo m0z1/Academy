@@ -1,34 +1,35 @@
 package com.FindPet.repository;
 
-import java.awt.print.Pageable;
+
+
+import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.FindPet.model.FindBoard;
 
-public interface FindBoardRepository {
+public interface FindBoardRepository extends JpaRepository<FindBoard, Long> {
 	
 	
 	
-	/* Find List - 2023-08-18 */
-	Page<FindBoard> findByFindBoardWhere(Pageable pageable, String string);
-
 	/* Find  Search - 2023-08-18 */
 	Page<FindBoard> findAllByPetcategory(Pageable pageable, String petcategory);
 	
-	Page<FindBoard> findByBreed(String word, Pageable pageable);
+	Page<FindBoard> findAllByBreedContaining(String word, Pageable pageable);
 	
-	Page<FindBoard> findByContentContaining(String word, Pageable pageable);
+	Page<FindBoard> findAllByContentContaining(String word, Pageable pageable);
 	
-	Page<FindBoard> findByPetname(String word, Pageable pageable);
+	Page<FindBoard> findAllByPetnameContaining(String word, Pageable pageable);
 	
-	Page<FindBoard> findByPetage(String word, Pageable pageable);
+	Page<FindBoard> findAllByPetageContaining(String word, Pageable pageable);
 	
-	Page<FindBoard> findByPetgender(String word, Pageable pageable);
+	Page<FindBoard> findAllByPetgenderContaining(String word, Pageable pageable);
 	
-	Page<FindBoard> findByPetcharacter(String word, Pageable pageable);
+	Page<FindBoard> findAllByPetcharacterContaining(String word, Pageable pageable);
 	
-	Page<FindBoard> findByFindaddr(String word, Pageable pageable);
+	Page<FindBoard> findAllByFindaddrContaining(String word, Pageable pageable);
 	
 	/* -----------------------------------------------------------------------------*/
 

@@ -2,7 +2,7 @@ package com.example.team1;
 
 import java.sql.Date;
 
-public class MissingBoard {
+public class MissyouBoard {
 
     private Long missingId;
     private String breed;
@@ -11,7 +11,7 @@ public class MissingBoard {
     private String petname;
     private String petage;
 
-    public MissingBoard(String breed, String content, Date regdate, String petname, String petage, String petgender, String petcharacter, String petcategory, String missingaddr) {
+    public MissyouBoard(String breed, String content, Date regdate, String petname, String petage, String petgender, String petcharacter, String petcategory, String missingaddr) {
         this.breed = breed;
         this.content = content;
         this.regdate = regdate;

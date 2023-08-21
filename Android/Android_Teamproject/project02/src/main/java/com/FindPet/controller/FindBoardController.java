@@ -1,11 +1,14 @@
 package com.FindPet.controller;
 
-import java.awt.print.Pageable;
+
+import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,8 +29,13 @@ public class FindBoardController {
 	/* Find Search & List - 2023-08-18 */
 	
 	@GetMapping("list")
-	public Page<FindBoard> Find_list(Pageable pageable){
-		return findBoardService.Find_list(pageable);
+	public List<FindBoard> Find_list(){
+		return findBoardService.Find_list();
+	}
+	
+	@PostMapping("insert")
+	public FindBoard insert(@RequestBody FindBoard findboard) {
+		return findBoardService.insert(findboard);
 	}
 	
 	@GetMapping("findDog")

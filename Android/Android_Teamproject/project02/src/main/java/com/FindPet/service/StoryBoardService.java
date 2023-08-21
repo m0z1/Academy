@@ -1,8 +1,8 @@
 package com.FindPet.service;
 
-import java.awt.print.Pageable;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.FindPet.model.StoryBoard;
@@ -21,7 +21,7 @@ public class StoryBoardService {
 	
 	public Page<StoryBoard> Story_list(Pageable pageable){
 		
-		Page<StoryBoard> story_list = storyBoardRepository.findByStoryBoardWhere(pageable, "StoryBoard");
+		Page<StoryBoard> story_list = storyBoardRepository.findAll(pageable);
 		
 		return story_list;
 	}
@@ -29,7 +29,7 @@ public class StoryBoardService {
 	/* ------------------------Story Search(title, content) - 2023-08-18 --------------------------*/
 	public Page<StoryBoard> title_Story_list(Pageable pageable, String word){
 		
-		Page<StoryBoard> title_list = storyBoardRepository.findByTitle(word, pageable);
+		Page<StoryBoard> title_list = storyBoardRepository.findAllByTitleContaining(word, pageable);
 		
 		return title_list;
 		
@@ -37,7 +37,7 @@ public class StoryBoardService {
 	
 	public Page<StoryBoard> content_Story_list(Pageable pageable, String word){
 		
-		Page<StoryBoard> content_list = storyBoardRepository.findByContentContaining(word, pageable);
+		Page<StoryBoard> content_list = storyBoardRepository.findAllByContentContaining(word, pageable);
 		
 		return content_list;
 		

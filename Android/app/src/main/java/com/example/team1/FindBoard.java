@@ -10,6 +10,12 @@ public class FindBoard {
     private String petname;
     private String petage;
 
+    private String petgender;
+    private String petcharacter;
+    private String petcategory;
+    private String findaddr;
+
+
     public Long getFindId() {
         return findId;
     }
@@ -102,9 +108,5 @@ public class FindBoard {
         this.findaddr = findaddr;
     }
 
-    private String petgender;
-    private String petcharacter;
-    private String petcategory;
-    private String findaddr;
 
 }

@@ -62,15 +62,15 @@ public class Image {
         this.storyboard = storyboard;
     }
 
-    public MissingBoard getMissingboard() {
+    public MissyouBoard getMissingboard() {
         return missingboard;
     }
 
-    public void setMissingboard(MissingBoard missingboard) {
+    public void setMissingboard(MissyouBoard missingboard) {
         this.missingboard = missingboard;
     }
 
-    public Image(String imgOriginalName, String imgSaveName, String imgUrl, String mainImg, FindBoard findboard, StoryBoard storyboard, MissingBoard missingboard) {
+    public Image(String imgOriginalName, String imgSaveName, String imgUrl, String mainImg, FindBoard findboard, StoryBoard storyboard, MissyouBoard missingboard) {
         this.imgOriginalName = imgOriginalName;
         this.imgSaveName = imgSaveName;
         this.imgUrl = imgUrl;
@@ -86,6 +86,6 @@ public class Image {
 
     private StoryBoard storyboard;
 
-    private MissingBoard missingboard;
+    private MissyouBoard missingboard;
 
 }

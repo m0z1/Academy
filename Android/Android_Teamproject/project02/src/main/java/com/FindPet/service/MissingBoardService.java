@@ -1,8 +1,11 @@
 package com.FindPet.service;
 
-import java.awt.print.Pageable;
+
+
+import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.FindPet.model.MissingBoard;
@@ -18,8 +21,8 @@ public class MissingBoardService {
 	
 	
 	/* Missing List - 2023-08-18 */
-	public Page<MissingBoard> Missing_list(Pageable pageable){
-		Page<MissingBoard> missing_list = missingBoardRepository.findByMissingBoardWhere(pageable, "MissingBoard");
+	public List<MissingBoard> Missing_list(){
+		List<MissingBoard> missing_list = missingBoardRepository.findAll();
 	
 		return missing_list;
 		
@@ -31,19 +34,18 @@ public class MissingBoardService {
 		
 		Page<MissingBoard> dog_lists = missingBoardRepository.findAllByPetcategory(pageable, "강아지");
 			
-		
 		if(field.equals("breed")) {
-			dog_lists = missingBoardRepository.findByBreed(word, pageable);
+			dog_lists = missingBoardRepository.findAllByBreedContaining(word, pageable);
 		} else if(field.equals("content")) {
-			dog_lists = missingBoardRepository.findByContentContaining(word, pageable);
+			dog_lists = missingBoardRepository.findAllByContentContaining(word, pageable);
 		}else if(field.equals("petname")) {
-			dog_lists = missingBoardRepository.findByPetname(word, pageable);
+			dog_lists = missingBoardRepository.findAllByPetnameContaining(word, pageable);
 		}else if(field.equals("petgender")) {
-			dog_lists = missingBoardRepository.findByPetgender(word, pageable);
+			dog_lists = missingBoardRepository.findAllByPetgenderContaining(word, pageable);
 		}else if(field.equals("petcharacter")) {
-			dog_lists= missingBoardRepository.findByPetcharacter(word, pageable);
+			dog_lists= missingBoardRepository.findAllByPetcharacterContaining(word, pageable);
 		}else if(field.equals("findaddr")) {
-			dog_lists = missingBoardRepository.findByMissingaddr(word, pageable);
+			dog_lists = missingBoardRepository.findAllByMissingaddrContaining(word, pageable);
 		}
 		return dog_lists;
 		
@@ -53,17 +55,17 @@ public class MissingBoardService {
 		Page<MissingBoard> cat_lists = missingBoardRepository.findAllByPetcategory(pageable, "고양이");
 		
 		if(field.equals("breed")) {
-			cat_lists = missingBoardRepository.findByBreed(word, pageable);
+			cat_lists = missingBoardRepository.findAllByBreedContaining(word, pageable);
 		} else if(field.equals("content")) {
-			cat_lists = missingBoardRepository.findByContentContaining(word, pageable);
+			cat_lists = missingBoardRepository.findAllByContentContaining(word, pageable);
 		}else if(field.equals("petname")) {
-			cat_lists = missingBoardRepository.findByPetname(word, pageable);
+			cat_lists = missingBoardRepository.findAllByPetnameContaining(word, pageable);
 		}else if(field.equals("petgender")) {
-			cat_lists = missingBoardRepository.findByPetgender(word, pageable);
+			cat_lists = missingBoardRepository.findAllByPetgenderContaining(word, pageable);
 		}else if(field.equals("petcharacter")) {
-			cat_lists= missingBoardRepository.findByPetcharacter(word, pageable);
+			cat_lists= missingBoardRepository.findAllByPetcharacterContaining(word, pageable);
 		}else if(field.equals("findaddr")) {
-			cat_lists = missingBoardRepository.findByMissingaddr(word, pageable);
+			cat_lists = missingBoardRepository.findAllByMissingaddrContaining(word, pageable);
 		}
 		return cat_lists;
 	
@@ -72,19 +74,18 @@ public class MissingBoardService {
 	
 	public Page<MissingBoard> etc_find_list(Pageable pageable, String field,String word){
 		Page<MissingBoard> etc_lists = missingBoardRepository.findAllByPetcategory(pageable, "기타");
-		
 		if(field.equals("breed")) {
-			etc_lists = missingBoardRepository.findByBreed(word, pageable);
+			etc_lists = missingBoardRepository.findAllByBreedContaining(word, pageable);
 		} else if(field.equals("content")) {
-			etc_lists = missingBoardRepository.findByContentContaining(word, pageable);
+			etc_lists = missingBoardRepository.findAllByContentContaining(word, pageable);
 		}else if(field.equals("petname")) {
-			etc_lists = missingBoardRepository.findByPetname(word, pageable);
+			etc_lists = missingBoardRepository.findAllByPetnameContaining(word, pageable);
 		}else if(field.equals("petgender")) {
-			etc_lists = missingBoardRepository.findByPetgender(word, pageable);
+			etc_lists = missingBoardRepository.findAllByPetgenderContaining(word, pageable);
 		}else if(field.equals("petcharacter")) {
-			etc_lists= missingBoardRepository.findByPetcharacter(word, pageable);
+			etc_lists= missingBoardRepository.findAllByPetcharacterContaining(word, pageable);
 		}else if(field.equals("findaddr")) {
-			etc_lists = missingBoardRepository.findByMissingaddr(word, pageable);
+			etc_lists = missingBoardRepository.findAllByMissingaddrContaining(word, pageable);
 		}
 		return etc_lists;
 		

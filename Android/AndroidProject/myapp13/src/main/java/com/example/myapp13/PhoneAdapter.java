@@ -35,9 +35,6 @@ public class PhoneAdapter
         notifyDataSetChanged();
     }
 
-
-
-
     public void updateItem(Phone phone, int position){
         Phone p = phoneList.get(position);
         p.setName(phone.getName());

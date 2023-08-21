@@ -6,7 +6,7 @@ public class Comment {
 
     private Member member;
 
-    public Comment(String content, Member member, FindBoard findboard, StoryBoard storyboard, MissingBoard missingboard) {
+    public Comment(String content, Member member, FindBoard findboard, StoryBoard storyboard, MissyouBoard missingboard) {
         this.content = content;
         this.member = member;
         this.findboard = findboard;
@@ -56,15 +56,15 @@ public class Comment {
         this.storyboard = storyboard;
     }
 
-    public MissingBoard getMissingboard() {
+    public MissyouBoard getMissingboard() {
         return missingboard;
     }
 
-    public void setMissingboard(MissingBoard missingboard) {
+    public void setMissingboard(MissyouBoard missingboard) {
         this.missingboard = missingboard;
     }
 
     private StoryBoard storyboard;
 
-    private MissingBoard missingboard;
+    private MissyouBoard missingboard;
 }

@@ -59,14 +59,15 @@
             android:layout_height="wrap_content" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:text="찾기"
-            android:background="#ffcf00"
-            android:layout_marginRight="8dp"
-            android:textColor="#ffffff"
-            android:textStyle="bold"
-            android:textSize="18sp"
+            android:id="@+id/searchMissing"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginRight="8dp"
+            android:background="#ffcf00"
+            android:text="찾기"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/writeMissing"
@@ -88,9 +89,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recylerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
-
-
 </LinearLayout>
