@@ -2,14 +2,16 @@ package com.example.team1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,10 +25,12 @@ public class MainActivity extends AppCompatActivity {
         Button btngoStory = findViewById(R.id.Story);
 
 
+
+
         btngoTomissing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Missing.class);
+                Intent intent = new Intent(getApplicationContext(), Find.class);
                 startActivity(intent);
             }
         });

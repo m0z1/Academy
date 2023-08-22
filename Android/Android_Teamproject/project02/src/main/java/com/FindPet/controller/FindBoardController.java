@@ -3,7 +3,6 @@ package com.FindPet.controller;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,11 +29,13 @@ public class FindBoardController {
 	
 	@GetMapping("list")
 	public List<FindBoard> Find_list(){
+		System.out.println("list : ");
 		return findBoardService.Find_list();
 	}
 	
 	@PostMapping("insert")
 	public FindBoard insert(@RequestBody FindBoard findboard) {
+		System.out.println("post insert : "  + findboard);
 		return findBoardService.insert(findboard);
 	}
 	

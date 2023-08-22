@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ffffff"
-    tools:context=".MainActivity">
+    tools:context=".Find">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,12 +54,13 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchViewFind"
             android:layout_width="212dp"
             android:layout_marginRight="9dp"
             android:layout_height="wrap_content" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/searchMissing"
+            android:id="@+id/searchFind"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="8dp"
@@ -87,9 +88,17 @@
         android:layout_height="0.8dp"
         android:background="#a0a0a0" />
 
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recylerView"
+        android:id="@+id/recylerViewFind"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+</ScrollView>
+
+
+
+
 </LinearLayout>

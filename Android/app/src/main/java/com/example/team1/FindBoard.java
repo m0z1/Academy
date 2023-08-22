@@ -1,11 +1,15 @@
 package com.example.team1;
 
-import java.sql.Date;
+import com.google.gson.annotations.Expose;
+
+import java.util.Date;
 
 public class FindBoard {
+    @Expose
     private Long findId;
     private String breed;
     private String content;
+    @Expose
     private Date regdate;
     private String petname;
     private String petage;
@@ -14,6 +18,10 @@ public class FindBoard {
     private String petcharacter;
     private String petcategory;
     private String findaddr;
+
+
+
+
 
 
     public Long getFindId() {
@@ -96,17 +104,7 @@ public class FindBoard {
         this.findaddr = findaddr;
     }
 
-    public FindBoard(String breed, String content, Date regdate, String petname, String petage, String petgender, String petcharacter, String petcategory, String findaddr) {
-        this.breed = breed;
-        this.content = content;
-        this.regdate = regdate;
-        this.petname = petname;
-        this.petage = petage;
-        this.petgender = petgender;
-        this.petcharacter = petcharacter;
-        this.petcategory = petcategory;
-        this.findaddr = findaddr;
-    }
+
 
 
 }

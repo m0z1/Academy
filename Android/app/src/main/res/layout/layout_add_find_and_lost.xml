@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_marginLeft="5dp"
         android:layout_width="match_parent"
-        android:layout_height="191dp"
+        android:layout_height="177dp"
+        android:layout_marginLeft="5dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -17,38 +17,38 @@
             android:src="@drawable/dog" />
 
         <LinearLayout
-            android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/breed"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="22dp"
+                android:id="@+id/Breed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:layout_marginBottom="5dp"
                 android:text="품종 : " />
 
             <TextView
-                android:id="@+id/petgender"
-                android:layout_marginBottom="5dp"
+                android:id="@+id/petGender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:text="성별 : " />
 
             <TextView
-                android:id="@+id/findaddr"
-                android:layout_marginBottom="5dp"
+                android:id="@+id/findAddr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:text="발견장소 : " />
 
             <TextView
-                android:id="@+id/petcharacter"
-                android:layout_marginBottom="5dp"
+                android:id="@+id/petCharacter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:text="특징 : " />
 
 

@@ -1,22 +1,31 @@
 package com.example.team1;
 
+
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
-public class MissingAdapter extends RecyclerView.Adapter<MissingAdapter.MissingViewHolder> {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-    private ArrayList<FindBoard> findList;
+public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder> {
 
-    public MissingAdapter(ArrayList<FindBoard> findList) {
+    private List<FindBoard> findList;
+
+    public FindAdapter(List<FindBoard> findList) {
         this.findList = findList;
     }
 
@@ -29,6 +38,7 @@ public class MissingAdapter extends RecyclerView.Adapter<MissingAdapter.MissingV
         findList.add(findBoard);
         notifyDataSetChanged();
     }
+
 
     public void updateItem(FindBoard findBoard, int position){
         FindBoard f = findList.get(position);
@@ -46,17 +56,21 @@ public class MissingAdapter extends RecyclerView.Adapter<MissingAdapter.MissingV
 
     @NonNull
     @Override
-    public MissingAdapter.MissingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FindAdapter.FindViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.layout_add_find_and_lost,parent,false);
-        MissingViewHolder missingViewHolder = new MissingViewHolder(view);
-        return missingViewHolder;
+        FindViewHolder findViewHolder = new FindViewHolder(view);
+        return findViewHolder;
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MissingAdapter.MissingViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FindAdapter.FindViewHolder holder, int position) {
         FindBoard findBoard = findList.get(position);
+
+
+
+
         holder.petcharacter.setText(findBoard.getPetcharacter());
         holder.petgender.setText(findBoard.getPetgender());
         holder.petImage.setImageResource(R.drawable.dog);
@@ -68,20 +82,25 @@ public class MissingAdapter extends RecyclerView.Adapter<MissingAdapter.MissingV
 
     @Override
     public int getItemCount() {
+        Log.d("findList  size :" ,findList.size()+"" );
         return findList == null ? 0 : findList.size();
     }
 
-    class MissingViewHolder extends RecyclerView.ViewHolder {
+    class FindViewHolder extends RecyclerView.ViewHolder {
+
         ImageView petImage;
         TextView breed, petgender,findaddr,petcharacter;
-        public MissingViewHolder(@NonNull View itemView) {
+        public FindViewHolder(@NonNull View itemView) {
             super(itemView);
+
             petImage = itemView.findViewById(R.id.petImage);
-            breed = itemView.findViewById(R.id.breed);
-            petgender = itemView.findViewById(R.id.petgender);
-            findaddr = itemView.findViewById(R.id.findaddr);
-            petcharacter = itemView.findViewById(R.id.petcharacter);
+            breed = itemView.findViewById(R.id.Breed);
+            petgender = itemView.findViewById(R.id.petGender);
+            findaddr = itemView.findViewById(R.id.findAddr);
+            petcharacter = itemView.findViewById(R.id.petCharacter);
         }
 
     }
+
+
 }

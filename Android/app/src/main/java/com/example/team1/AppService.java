@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
@@ -17,10 +18,13 @@ public interface AppService {
     @GET("/findBoard/list")
     Call<List<FindBoard>> find_list();
 
-    @POST("findBoard/insert")
+    @GET("/findBoard/find")
+    Call<List<FindBoard>> find(@Path("id") int id);
+
+    @POST("/findBoard/insert")
     Call<FindBoard> insert(@Body FindBoard findBoard);
 
-@GET("/findBoard/findDog")
+    @GET("/findBoard/findDog")
     Call<List<FindBoard>> findDog();
     @GET("/findBoard/findCat")
     Call<List<FindBoard>> findCat();

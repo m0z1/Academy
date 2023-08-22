@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 public class MissyouAdapter extends RecyclerView.Adapter<MissyouAdapter.MissyouViewHolder> {
 
-    private ArrayList<Missing>  missList;
+    private ArrayList<Find>  missList;
 
-    public MissyouAdapter(ArrayList<Missing> missList) {
+    public MissyouAdapter(ArrayList<Find> missList) {
         this.missList = missList;
     }
 

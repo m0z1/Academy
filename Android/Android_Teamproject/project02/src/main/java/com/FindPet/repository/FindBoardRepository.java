@@ -2,8 +2,6 @@ package com.FindPet.repository;
 
 
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.FindPet.model.FindBoard;
 
 public interface FindBoardRepository extends JpaRepository<FindBoard, Long> {
-	
 	
 	
 	/* Find  Search - 2023-08-18 */
