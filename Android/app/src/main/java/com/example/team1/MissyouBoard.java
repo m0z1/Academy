@@ -1,29 +1,23 @@
 package com.example.team1;
 
-import java.sql.Date;
+import com.google.gson.annotations.Expose;
+
+import java.util.Date;
 
 public class MissyouBoard {
-
+    @Expose
     private Long missingId;
     private String breed;
     private String content;
+    @Expose
     private Date regdate;
     private String petname;
     private String petage;
-
-    public MissyouBoard(String breed, String content, Date regdate, String petname, String petage, String petgender, String petcharacter, String petcategory, String missingaddr) {
-        this.breed = breed;
-        this.content = content;
-        this.regdate = regdate;
-        this.petname = petname;
-        this.petage = petage;
-        this.petgender = petgender;
-        this.petcharacter = petcharacter;
-        this.petcategory = petcategory;
-        this.missingaddr = missingaddr;
-    }
-
     private String petgender;
+
+    private String petcharacter;
+    private String petcategory;
+    private String missingaddr;
 
     public Long getMissingId() {
         return missingId;
@@ -105,7 +99,5 @@ public class MissyouBoard {
         this.missingaddr = missingaddr;
     }
 
-    private String petcharacter;
-    private String petcategory;
-    private String missingaddr;
+
 }

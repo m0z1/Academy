@@ -2,6 +2,7 @@ package com.example.team1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -40,7 +41,7 @@ public class FindBoard_Insert extends AppCompatActivity {
             }
 
             AppService boardInterFace = AppClient.getInstance().getAppService();
-            Call<FindBoard> call = boardInterFace.insert(findBoard);
+            Call<FindBoard> call = boardInterFace.find_insert(findBoard);
             call.enqueue(new Callback<FindBoard>() {
                 @Override
                 public void onResponse(Call<FindBoard> call, Response<FindBoard> response) {
@@ -53,7 +54,8 @@ public class FindBoard_Insert extends AppCompatActivity {
                     Log.d("FindBoard 등록", "fail");
                 }
             });
-            finish();
+            Intent intent = new Intent(getApplicationContext(),Find.class);
+            startActivity(intent);
         });
 
     }

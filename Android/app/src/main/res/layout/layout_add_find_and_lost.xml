@@ -51,6 +51,17 @@
                 android:layout_marginBottom="5dp"
                 android:text="특징 : " />
 
+            <TextView
+                android:id="@+id/petCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="종 : "
+               />
+
+
+
+
 
         </LinearLayout>
 

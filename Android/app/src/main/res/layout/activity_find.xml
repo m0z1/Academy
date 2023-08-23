@@ -83,10 +83,56 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:background="#d58600"
+            android:id="@+id/DogFindbtn"
+            android:layout_width="135dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:layout_height="wrap_content"
+            android:text="강아지" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/CatFindbtn"
+            android:background="#ffda09"
+            android:layout_width="135dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:layout_height="wrap_content"
+            android:text="고양이" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/EtcFindbtn"
+            android:background="#ff8c32"
+            android:layout_width="135dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:layout_height="wrap_content"
+            android:text="기타" />
+
+
+
+
+    </LinearLayout>
+
     <View
         android:layout_width="wrap_content"
         android:layout_height="0.8dp"
-        android:background="#a0a0a0" />
+        android:background="#a0a0a0" ></View>
+
+
+
+
+
 
 <ScrollView
     android:layout_width="match_parent"

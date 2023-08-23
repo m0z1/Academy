@@ -1,6 +1,7 @@
 package com.example.team1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +24,7 @@ import retrofit2.Response;
 public class Find extends AppCompatActivity {
 private FindAdapter findAdapter;
 private RecyclerView recyclerView;
-private List<FindBoard> findList;
+private ArrayList<FindBoard> findList;
 
 
     @Override
@@ -35,6 +36,9 @@ private List<FindBoard> findList;
         Button writeMissing = findViewById(R.id.writeMissing);
         Button Search = findViewById(R.id.searchFind);
         SearchView searchView = findViewById(R.id.searchViewFind);
+        Button DogFindbtn = findViewById(R.id.DogFindbtn);
+        Button CatFindbtn = findViewById(R.id.CatFindbtn);
+        Button EtcFindbtn = findViewById(R.id.EtcFindbtn);
 
 
         recyclerView = findViewById(R.id.recylerViewFind);
@@ -51,7 +55,6 @@ private List<FindBoard> findList;
         call.enqueue(new Callback<List<FindBoard>>() {
             @Override
             public void onResponse(Call<List<FindBoard>> call, Response<List<FindBoard>> response) {
-                Log.d("onResponse",response.body()+"" );
                 for(FindBoard f : response.body()){
                     findAdapter.addItem(f);
                 }
@@ -65,15 +68,43 @@ private List<FindBoard> findList;
         });
 
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+
+        DogFindbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public void onClick(View view) {
+               String dog = "강아지";
+               AppService appService = AppClient.getInstance().getAppService();
+               Call<List<FindBoard>> call = appService.findDog(dog);
+
+                findAdapter.removeAllItem(findList);
+               call.enqueue(new Callback<List<FindBoard>>() {
+                   @Override
+                   public void onResponse(Call<List<FindBoard>> call, Response<List<FindBoard>> response) {
+                       for(FindBoard f : response.body()){
+
+                           findAdapter.addItem(f);
+                       }
+                       findAdapter.notifyDataSetChanged();
+                   }
+
+                   @Override
+                   public void onFailure(Call<List<FindBoard>> call, Throwable t) {
+
+                   }
+               });
+
+            }
+        });
 
 
-                AppService appService1 = AppClient.getInstance().getAppService();
-                Call<List<FindBoard>> call = appService1.findDog();
-
-
+        CatFindbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String Cat ="고양이";
+                AppService appService = AppClient.getInstance().getAppService();
+                Call<List<FindBoard>> call = appService.findCat(Cat);
+                findAdapter.removeAllItem(findList);
                 call.enqueue(new Callback<List<FindBoard>>() {
                     @Override
                     public void onResponse(Call<List<FindBoard>> call, Response<List<FindBoard>> response) {
@@ -88,14 +119,36 @@ private List<FindBoard> findList;
 
                     }
                 });
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
             }
         });
+
+        EtcFindbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String etc = "기타";
+                AppService appService = AppClient.getInstance().getAppService();
+                Call<List<FindBoard>> call = appService.findEtc(etc);
+                findAdapter.removeAllItem(findList);
+
+                call.enqueue(new Callback<List<FindBoard>>() {
+                    @Override
+                    public void onResponse(Call<List<FindBoard>> call, Response<List<FindBoard>> response) {
+
+                        for(FindBoard f : response.body()){
+                            findAdapter.addItem(f);
+                        }
+                        findAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<FindBoard>> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+
+
         missingImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

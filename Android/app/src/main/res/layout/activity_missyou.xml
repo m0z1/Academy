@@ -78,6 +78,46 @@
             android:layout_height="match_parent" />
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:background="#fe8f00"
+            android:id="@+id/DogMissbtn"
+            android:layout_width="135dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:layout_height="wrap_content"
+            android:text="강아지" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/CatMissbtn"
+            android:background="#ffda09"
+            android:layout_width="135dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:layout_height="wrap_content"
+            android:text="고양이" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/EtcMissbtn"
+            android:background="#d58600"
+            android:layout_width="135dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:layout_height="wrap_content"
+            android:text="기타" />
+
+
+
+
+    </LinearLayout>
 
     <View
         android:layout_width="wrap_content"

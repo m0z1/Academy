@@ -34,14 +34,19 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
         notifyDataSetChanged();
     }
 
+    public void removeAllItem(List<FindBoard> findBoard){
+        findList.removeAll(findBoard);
+        notifyDataSetChanged();
+    }
+
     public void addItem(FindBoard findBoard){
         findList.add(findBoard);
         notifyDataSetChanged();
     }
 
 
-    public void updateItem(FindBoard findBoard, int position){
-        FindBoard f = findList.get(position);
+    public void updateItem(FindBoard findBoard){
+        FindBoard f = new FindBoard();
         f.setBreed(findBoard.getBreed());
         f.setContent(findBoard.getContent());
         f.setFindaddr(findBoard.getFindaddr());
@@ -49,6 +54,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
         f.setPetgender(findBoard.getPetgender());
         f.setPetname(findBoard.getPetname());
         f.setPetcharacter(findBoard.getPetcharacter());
+        f.setPetcategory(findBoard.getPetcategory());
 
         notifyDataSetChanged();
     }
@@ -64,20 +70,16 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
 
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull FindAdapter.FindViewHolder holder, int position) {
         FindBoard findBoard = findList.get(position);
-
-
-
-
         holder.petcharacter.setText(findBoard.getPetcharacter());
         holder.petgender.setText(findBoard.getPetgender());
         holder.petImage.setImageResource(R.drawable.dog);
         holder.findaddr.setText(findBoard.getFindaddr());
         holder.breed.setText(findBoard.getBreed());
-
-
+        holder.petCategory.setText(findBoard.getPetcategory());
     }
 
     @Override
@@ -89,7 +91,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
     class FindViewHolder extends RecyclerView.ViewHolder {
 
         ImageView petImage;
-        TextView breed, petgender,findaddr,petcharacter;
+        TextView breed, petgender,findaddr,petcharacter,petCategory;
         public FindViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -98,6 +100,9 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
             petgender = itemView.findViewById(R.id.petGender);
             findaddr = itemView.findViewById(R.id.findAddr);
             petcharacter = itemView.findViewById(R.id.petCharacter);
+            petCategory = itemView.findViewById(R.id.petCategory);
+
+
         }
 
     }

@@ -15,6 +15,7 @@ import retrofit2.http.Query;
 // spring 연결
 public interface AppService {
 
+    /* Find - 신고자 */
     @GET("/findBoard/list")
     Call<List<FindBoard>> find_list();
 
@@ -22,36 +23,43 @@ public interface AppService {
     Call<List<FindBoard>> find(@Path("id") int id);
 
     @POST("/findBoard/insert")
-    Call<FindBoard> insert(@Body FindBoard findBoard);
+    Call<FindBoard> find_insert(@Body FindBoard findBoard);
 
-    @GET("/findBoard/findDog")
-    Call<List<FindBoard>> findDog();
-    @GET("/findBoard/findCat")
-    Call<List<FindBoard>> findCat();
+    @GET("/findBoard/findDog/{petcategory}")
+    Call<List<FindBoard>> findDog(@Path("petcategory") String petcategory);
+    @GET("/findBoard/findCat/{petcategory}")
+    Call<List<FindBoard>> findCat(@Path("petcategory") String petcategory);
 
-    @GET("/findBoard/findEtc")
-    Call<List<FindBoard>> findEtc();
+    @GET("/findBoard/findEtc/{petcategory}")
+    Call<List<FindBoard>> findEtc(@Path("petcategory") String petcategory );
 
+    /* MISSYOU - 분실자 */
+    @POST("/missingBoard/insert")
+    Call<MissyouBoard> missyou_insert(@Body MissyouBoard missyouBoard);
     @GET("/missingBoard/list")
     Call<List<MissyouBoard>> missing_list();
 
-    @GET("/missingBoard/findDog")
-    Call<List<MissyouBoard>> MissingDog();
+    @GET("/missingBoard/missingDog/{petcategory}")
+    Call<List<MissyouBoard>> missingDog(@Path("petcategory") String petcategory);
 
-    @GET("/missingBoard/findCat")
-    Call<List<MissyouBoard>> MissingCat();
+    @GET("/missingBoard/missingCat/{petcategory}")
+    Call<List<MissyouBoard>> missingCat(@Path("petcategory")String petcategory);
 
-    @GET("/missingBoard/findEtc")
-    Call<List<MissyouBoard>> MissingEtc();
+    @GET("/missingBoard/missingEtc/{petcategory}")
+    Call<List<MissyouBoard>> missingEtc(@Path("petcategory") String petcategory);
+    /* Story */
+
+    @POST("/storyBoard/insert")
+    Call<StoryBoard> story_insert(@Body StoryBoard storyBoard);
 
     @GET("/storyBoard/list")
     Call<List<StoryBoard>> story_list();
 
     @GET("/storyBoard/findTitle")
-    Call<List<StoryBoard>> StoryTitle();
+    Call<List<StoryBoard>> storyTitle();
 
     @GET("/storyBoard/findContent")
-    Call<List<StoryBoard>> StoryContent();
+    Call<List<StoryBoard>> storyContent();
 
 
 
