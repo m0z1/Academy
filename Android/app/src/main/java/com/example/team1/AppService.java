@@ -33,7 +33,13 @@ public interface AppService {
     @GET("/findBoard/findEtc/{petcategory}")
     Call<List<FindBoard>> findEtc(@Path("petcategory") String petcategory );
 
+    @GET("/findBoard/findAll/{word}")
+    Call<List<FindBoard>> findAll(@Path("word") String word);
+
     /* MISSYOU - 분실자 */
+
+    @GET("/missingBoard/findAll/{word}")
+    Call<List<MissyouBoard>> findAll_miss(@Path("word") String word);
     @POST("/missingBoard/insert")
     Call<MissyouBoard> missyou_insert(@Body MissyouBoard missyouBoard);
     @GET("/missingBoard/list")

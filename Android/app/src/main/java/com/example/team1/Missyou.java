@@ -1,6 +1,7 @@
 package com.example.team1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,7 +28,7 @@ public class Missyou extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_missyou);
-
+        SearchView searchView = findViewById(R.id.SearchViewMiss);
         Button writeMissyou = findViewById(R.id.writeMissyou);
         ImageView missyouImg = findViewById(R.id.missyou);
         Button DogMissbtn = findViewById(R.id.DogMissbtn);
@@ -59,6 +60,34 @@ public class Missyou extends AppCompatActivity {
             }
         });
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                AppService appService = AppClient.getInstance().getAppService();
+                Call<List<MissyouBoard>> call = appService.findAll_miss(query);
+                missyouAdapter.removeAllItem(missList);
+                call.enqueue(new Callback<List<MissyouBoard>>() {
+                    @Override
+                    public void onResponse(Call<List<MissyouBoard>> call, Response<List<MissyouBoard>> response) {
+                        for(MissyouBoard m : response.body()){
+                            missyouAdapter.addItem(m);
+                        }
+                        missyouAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<MissyouBoard>> call, Throwable t) {
+
+                    }
+                });
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         DogMissbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

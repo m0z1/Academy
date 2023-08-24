@@ -26,7 +26,6 @@ private FindAdapter findAdapter;
 private RecyclerView recyclerView;
 private ArrayList<FindBoard> findList;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,12 +33,12 @@ private ArrayList<FindBoard> findList;
 
         ImageView missingImg = findViewById(R.id.missing);
         Button writeMissing = findViewById(R.id.writeMissing);
-        Button Search = findViewById(R.id.searchFind);
+
         SearchView searchView = findViewById(R.id.searchViewFind);
         Button DogFindbtn = findViewById(R.id.DogFindbtn);
         Button CatFindbtn = findViewById(R.id.CatFindbtn);
         Button EtcFindbtn = findViewById(R.id.EtcFindbtn);
-
+        searchView.isSubmitButtonEnabled();
 
         recyclerView = findViewById(R.id.recylerViewFind);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Find.this,LinearLayoutManager.VERTICAL,false);
@@ -61,14 +60,42 @@ private ArrayList<FindBoard> findList;
                 findAdapter.notifyDataSetChanged();
             }
 
+
             @Override
             public void onFailure(Call<List<FindBoard>> call, Throwable t) {
-                Log.d("onFailure",t+"" );
             }
         });
 
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                    AppService appService = AppClient.getInstance().getAppService();
+                    Call<List<FindBoard>> call = appService.findAll(query);
+                    findAdapter.removeAllItem(findList);
+                    call.enqueue(new Callback<List<FindBoard>>() {
+                        @Override
+                        public void onResponse(Call<List<FindBoard>> call, Response<List<FindBoard>> response) {
+                            for(FindBoard f : response.body()){
+                                findAdapter.addItem(f);
+                            }
+                            findAdapter.notifyDataSetChanged();
+                        }
 
+                        @Override
+                        public void onFailure(Call<List<FindBoard>> call, Throwable t) {
+
+                        }
+                    });
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
 
         DogFindbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,18 +191,6 @@ private ArrayList<FindBoard> findList;
                 startActivity(intent);
             }
         });
-
-
-     Search.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             FindBoard findBoard = new FindBoard();
-             AppService appService = AppClient.getInstance().getAppService();
-
-
-         }
-     });
-
 
     }
 }

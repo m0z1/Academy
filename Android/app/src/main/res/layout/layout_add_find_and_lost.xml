@@ -21,43 +21,88 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/Breed"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:layout_marginBottom="5dp"
-                android:text="품종 : " />
+                android:orientation="horizontal">
+                <TextView
+                    android:text="품종 : "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/Breed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
 
-            <TextView
-                android:id="@+id/petGender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="성별 : " />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/findAddr"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_marginTop="9dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="발견장소 : " />
+                android:orientation="horizontal">
+                <TextView
+                    android:text="성별 : "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/petGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
-            <TextView
-                android:id="@+id/petCharacter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="특징 : " />
+                    />
 
-            <TextView
-                android:id="@+id/petCategory"
-                android:layout_width="wrap_content"
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="9dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="발견장소 : "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/findAddr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="9dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="종 : "
-               />
+                android:orientation="horizontal">
+                <TextView
+                    android:text="특징 : "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/petCharacter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    />
+            </LinearLayout>
+          <LinearLayout
+              android:layout_marginTop="9dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+              <TextView
+                  android:text="분류 : "
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+              <TextView
+                  android:id="@+id/petCategory"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginBottom="5dp"
+                  />
+
+
+          </LinearLayout>
 
 
 
@@ -67,5 +112,10 @@
 
 
     </LinearLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.8dp"
+        android:background="#a0a0a0" />
+
 
 </LinearLayout>

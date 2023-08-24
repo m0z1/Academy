@@ -53,19 +53,11 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.SearchView
-            android:layout_width="212dp"
+            android:id="@+id/SearchViewMiss"
+            android:layout_width="300dp"
             android:layout_marginRight="9dp"
+            app:iconifiedByDefault="false"
             android:layout_height="wrap_content" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:text="찾기"
-            android:background="#f15100"
-            android:layout_marginRight="8dp"
-            android:textColor="#ffffff"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/writeMissyou"
@@ -101,6 +93,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="#ffffff"
+
             android:layout_height="wrap_content"
             android:text="고양이" />
 
