@@ -29,6 +29,18 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
         this.findList = findList;
     }
 
+    public interface  OnItemClickListener{
+        void OnItemClick(int pos);
+    }
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
+    }
+
+
+
+
     public void removeItem(int position){
         findList.remove(position);
         notifyDataSetChanged();
@@ -80,6 +92,8 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
         holder.findaddr.setText(findBoard.getFindaddr());
         holder.breed.setText(findBoard.getBreed());
         holder.petCategory.setText(findBoard.getPetcategory());
+
+
     }
 
     @Override
@@ -91,7 +105,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
     class FindViewHolder extends RecyclerView.ViewHolder {
 
         ImageView petImage;
-        TextView breed, petgender,findaddr,petcharacter,petCategory;
+        TextView breed, petgender,findaddr,petcharacter,petCategory,petName;
         public FindViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -101,8 +115,14 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
             findaddr = itemView.findViewById(R.id.findAddr);
             petcharacter = itemView.findViewById(R.id.petCharacter);
             petCategory = itemView.findViewById(R.id.petCategory);
+            petName = itemView.findViewById(R.id.petname);
 
-
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onItemClickListener.OnItemClick(getAdapterPosition());
+            }
+        });
         }
 
     }

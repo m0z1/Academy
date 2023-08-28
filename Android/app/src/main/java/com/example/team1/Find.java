@@ -66,12 +66,20 @@ private ArrayList<FindBoard> findList;
             }
         });
 
+/*        findAdapter.setOnItemClickListener(new FindAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(int pos) {
+                Intent intent = new Intent(getApplicationContext(), 상세보기.class);
+                startActivity(intent);
+            }
+        });*/ // 아이템 클릭시 상세보기
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                     AppService appService = AppClient.getInstance().getAppService();
                     Call<List<FindBoard>> call = appService.findAll(query);
+
                     findAdapter.removeAllItem(findList);
                     call.enqueue(new Callback<List<FindBoard>>() {
                         @Override

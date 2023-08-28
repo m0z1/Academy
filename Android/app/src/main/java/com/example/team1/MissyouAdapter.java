@@ -20,6 +20,16 @@ public class MissyouAdapter extends RecyclerView.Adapter<MissyouAdapter.MissyouV
         this.missList = missList;
     }
 
+    public interface OnItemClickListener{
+        void OnItemClick(int pos);
+    }
+
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
+    }
+
     public void removeAllItem(List<MissyouBoard> missyouBoard){
         missList.removeAll(missyouBoard);
         notifyDataSetChanged();
@@ -71,6 +81,12 @@ public class MissyouAdapter extends RecyclerView.Adapter<MissyouAdapter.MissyouV
             petcharacter = itemView.findViewById(R.id.petCharacter);
             petCategory = itemView.findViewById(R.id.petCategory);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemClickListener.OnItemClick(getAdapterPosition());
+                }
+            });
         }
     }
 }

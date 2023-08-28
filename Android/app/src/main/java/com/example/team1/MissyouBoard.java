@@ -3,6 +3,7 @@ package com.example.team1;
 import com.google.gson.annotations.Expose;
 
 import java.util.Date;
+import java.util.List;
 
 public class MissyouBoard {
     @Expose
@@ -18,6 +19,16 @@ public class MissyouBoard {
     private String petcharacter;
     private String petcategory;
     private String missingaddr;
+
+    private List<ImgFile> imgFileList;
+
+    public List<ImgFile> getImgFileList() {
+        return imgFileList;
+    }
+
+    public void setImgFileList(List<ImgFile> imgFileList) {
+        this.imgFileList = imgFileList;
+    }
 
     public Long getMissingId() {
         return missingId;

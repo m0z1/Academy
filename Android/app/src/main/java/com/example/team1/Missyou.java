@@ -60,6 +60,15 @@ public class Missyou extends AppCompatActivity {
             }
         });
 
+/*        missyouAdapter.setOnItemClickListener(new MissyouAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(int pos) {
+                Intent intent = new Intent(getApplicationContext(), 상세보기.class);
+                startActivity(intent);
+            }
+        });*/ // 분실자 상세보기로 가기
+
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

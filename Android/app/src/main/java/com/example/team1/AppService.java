@@ -3,17 +3,26 @@ package com.example.team1;
 import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
 // spring 연결
 public interface AppService {
+    @GET("/main/all")
+    Call<List<MainBoard>> all();
+
 
     /* Find - 신고자 */
     @GET("/findBoard/list")
@@ -24,6 +33,18 @@ public interface AppService {
 
     @POST("/findBoard/insert")
     Call<FindBoard> find_insert(@Body FindBoard findBoard);
+
+    @Multipart
+    @POST("/findBoard/insert")
+    Call<String> saveFindBoard(@Part List<MultipartBody.Part> imgFileList, @PartMap Map<String, RequestBody> findBoard);
+
+    @Multipart
+    @POST("/missingBoard/insert")
+    Call<String> saveMissingBoard(@Part List<MultipartBody.Part> imgFileList, @PartMap Map<String, RequestBody> missingBoard);
+
+    @Multipart
+    @POST("/storyBoard/insert")
+    Call<String> saveStoryBoard(@Part List<MultipartBody.Part> imgFileList, @PartMap Map<String, RequestBody> storyBoard);
 
     @GET("/findBoard/findDog/{petcategory}")
     Call<List<FindBoard>> findDog(@Path("petcategory") String petcategory);

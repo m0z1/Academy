@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <ImageView
+                android:id="@+id/ivimage"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:src="@drawable/cat" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/textview_borderline"
+                    android:gravity="center"
+                    android:text="공고번호"
+                    android:textColor="#BF041CB6" />
+
+                <TextView
+                    android:id="@+id/txnumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="#A6ACACAC"
+                    android:text="공고번호 가져오기" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/textview_borderline"
+                    android:gravity="center"
+                    android:text="접수일자"
+                    android:textColor="#BF041CB6" />
+
+                <TextView
+                    android:id="@+id/txregdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="작성일자 가져오기" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/textview_borderline"
+                    android:gravity="center"
+                    android:text="품종"
+                    android:textColor="#BF041CB6" />
+
+                <TextView
+                    android:id="@+id/txbreed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="품종 가져오기" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/textview_borderline"
+                    android:gravity="center"
+                    android:text="성별"
+                    android:textColor="#BF041CB6" />
+
+                <TextView
+                    android:id="@+id/txgender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="성별 가져오기" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/textview_borderline"
+                    android:gravity="center"
+                    android:text="발견장소"
+                    android:textColor="#BF041CB6" />
+
+                <TextView
+                    android:id="@+id/txfindAddr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="발견장소 가져오기" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/textview_borderline"
+                    android:gravity="center"
+                    android:text="특징"
+                    android:textColor="#BF041CB6" />
+
+                <TextView
+                    android:id="@+id/txcharacter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="특징 가져오기" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/textview_borderline"
+                    android:gravity="center"
+                    android:text="상태"
+                    android:textColor="#BF041CB6" />
+
+                <TextView
+                    android:id="@+id/txstatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="상태 가져오기" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/textview_borderline"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:text="공고기간"
+                    android:textColor="#BF041CB6" />
+
+                <TextView
+                    android:id="@+id/txperiod"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="공고기간 가져오기" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/textview_borderline"
+                    android:gravity="center"
+                    android:text="기타사항"
+                    android:textColor="#BF041CB6" />
+
+                <TextView
+                    android:id="@+id/txetc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="기타사항 가져오기" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/textview_borderline"
+                    android:gravity="center"
+                    android:text="등록번호"
+                    android:textColor="#BF041CB6" />
+
+                <TextView
+                    android:id="@+id/txregnumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="등록번호 가져오기" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.8dp"
+        android:background="#a0a0a0"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"/>
+
+</LinearLayout>

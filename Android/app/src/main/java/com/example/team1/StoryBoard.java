@@ -1,14 +1,20 @@
 package com.example.team1;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.Date;
 import java.util.List;
 
 public class StoryBoard {
 
+    @Expose
     private Long storyId;
     private String title;
     private String content;
-    private Date regdate;
+
+    private Date date;
+
+    private List<ImgFile> imgFileList;
 
     public Long getStoryId() {
         return storyId;
@@ -16,6 +22,22 @@ public class StoryBoard {
 
     public void setStoryId(Long storyId) {
         this.storyId = storyId;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public List<ImgFile> getImgFileList() {
+        return imgFileList;
+    }
+
+    public void setImgFileList(List<ImgFile> imgFileList) {
+        this.imgFileList = imgFileList;
     }
 
     public String getTitle() {
@@ -32,13 +54,5 @@ public class StoryBoard {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public Date getRegdate() {
-        return regdate;
-    }
-
-    public void setRegdate(Date regdate) {
-        this.regdate = regdate;
     }
 }

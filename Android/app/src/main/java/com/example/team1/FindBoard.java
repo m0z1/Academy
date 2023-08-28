@@ -3,6 +3,7 @@ package com.example.team1;
 import com.google.gson.annotations.Expose;
 
 import java.util.Date;
+import java.util.List;
 
 public class FindBoard {
     @Expose
@@ -13,16 +14,21 @@ public class FindBoard {
     private Date regdate;
     private String petname;
     private String petage;
-
     private String petgender;
     private String petcharacter;
     private String petcategory;
     private String findaddr;
 
 
+    private List<ImgFile> imgFileList;
 
+    public List<ImgFile> getImgFileList() {
+        return imgFileList;
+    }
 
-
+    public void setImgFileList(List<ImgFile> imgFileList) {
+        this.imgFileList = imgFileList;
+    }
 
     public Long getFindId() {
         return findId;
@@ -103,8 +109,4 @@ public class FindBoard {
     public void setFindaddr(String findaddr) {
         this.findaddr = findaddr;
     }
-
-
-
-
 }
