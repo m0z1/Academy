@@ -78,6 +78,9 @@
             android:name=".Board.shelter.ShelterBoardList"
             android:exported="false" />
         <activity
+            android:name=".Board.shelter.ShelterBoardDetail"
+            android:exported="false" />
+        <activity
             android:name=".Board.storyBoard.StoryCommentList"
             android:exported="false" />
         <activity

@@ -5,16 +5,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 import com.findpet.project01.Board.BoardClient;
 import com.findpet.project01.Board.BoardInterface;
+import com.findpet.project01.Board.missingBoard.MissyouBoardList;
+import com.findpet.project01.Board.shelter.ShelterBoardList;
 import com.findpet.project01.Main;
 import com.findpet.project01.R;
+import com.findpet.project01.account.Client;
+import com.findpet.project01.account.Member;
+import com.findpet.project01.account.MemberService;
+import com.findpet.project01.databinding.ActivityMissyouBoardListBinding;
+import com.findpet.project01.databinding.ActivityStoryBoardListBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,16 +36,46 @@ public class StoryBoardList extends AppCompatActivity {
 
     List<StoryBoard> storyBoardList;
     StoryAdapter storyAdapter;
+    String name = "";
+    private ActivityStoryBoardListBinding binding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_story_board_list);
+        binding = ActivityStoryBoardListBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
 
         Button writeStroy = findViewById(R.id.writeStory);
         ImageView StoryImg = findViewById(R.id.StoryImg);
         RecyclerView recyclerView = findViewById(R.id.recylerView);
+        TextView membername = findViewById(R.id.memberName);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("autoLogin", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+
+        MemberService memberService = Client.getInstance().getMemberService();
+        Call<Member> call1 = memberService.findmember(username);
+        call1.enqueue(new Callback<Member>() {
+            @Override
+            public void onResponse(Call<Member> call, Response<Member> response) {
+                Member member = response.body();
+                if(member.getName()!=null) {
+                    name = member.getName().toString();
+                } else {
+                    name = "";
+                }
+                if(!name.equals("")){
+                    membername.setText(name + " 님 환영합니다");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Member> call, Throwable t) {
+
+            }
+        });
 
 
         //이미지 클릭 -> 홈으로 이동
@@ -54,6 +93,42 @@ public class StoryBoardList extends AppCompatActivity {
             public void onClick(View view) {
                Intent intent = new Intent(getApplicationContext(), StoryBoardActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        // 발견자 게시판으로 가는 버튼
+        binding.goTomissing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MissyouBoardList.class);
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
+        });
+
+        // 실종 주인 게시판으로 가는 버튼
+        binding.goTomissyou.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MissyouBoardList.class);
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
+        });
+
+        //스토리 게시판으로 가는 버튼
+        binding.Story.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), StoryBoardList.class);
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
+        });
+
+        //보호소 게시판으로 가는 버튼
+        binding.protect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ShelterBoardList.class);
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
 
@@ -82,6 +157,7 @@ public class StoryBoardList extends AppCompatActivity {
 
             }
         });
+
 
     }
 }

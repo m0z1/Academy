@@ -24,24 +24,22 @@
                 android:layout_marginTop="17dp"
                 android:layout_marginRight="8dp"
                 android:src="@drawable/member" />
+
             <TextView
                 android:id="@+id/memberName"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginBottom="6dp"
-                android:text="안녕하세요"/>
+                android:text="안녕하세요" />
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/ShelterImg"
+            android:layout_width="243dp"
             android:layout_height="match_parent"
-            android:text="공고(임시)"
-            android:textSize="45sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:textColor="#00095E"/>
+            android:src="@drawable/shelter" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -49,7 +47,55 @@
         </LinearLayout>
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/goTomissing"
+            android:text="Missing"
+            android:textSize="12sp"
+            android:layout_marginLeft="10dp"
+            android:background="#FFC107"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/goTomissyou"
+            android:layout_marginLeft="10dp"
+            android:background="#FFC107"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:text="MissYou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/Story"
+            android:textSize="12sp"
+            android:layout_marginLeft="10dp"
+            android:background="#FFC107"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:text="Story"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/protect"
+            android:text="보호소"
+            android:textSize="13sp"
+            android:layout_marginLeft="10dp"
+            android:background="#FFC107"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -81,7 +127,7 @@
         android:background="#a0a0a0" />
 
     <TextView
-        android:id="@+id/txtest"
+        android:id="@+id/searchresult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

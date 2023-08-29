@@ -38,4 +38,9 @@ public class StoryBoard {
 	
 	@OneToMany(mappedBy = "storyboard")
 	private List<Comment> comment;
+	
+	public void storyBoardUpdate(StoryBoard storyBoard) {
+		this.title = storyBoard.getTitle();
+		this.content = storyBoard.getContent();
+	}
 }

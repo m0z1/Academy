@@ -1,9 +1,11 @@
 package com.findpet.project01.Board.shelter;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -23,9 +25,9 @@ import java.util.List;
 
 public class ShelterAdapter extends RecyclerView.Adapter<ShelterAdapter.ViewHolder> {
 
-    private List<Shelter> shelterList;
+    private ArrayList<Shelter> shelterList;
 
-    public ShelterAdapter(List<Shelter> shelterList) {
+    public ShelterAdapter(ArrayList<Shelter> shelterList) {
         this.shelterList = shelterList;
     }
 
@@ -36,33 +38,36 @@ public class ShelterAdapter extends RecyclerView.Adapter<ShelterAdapter.ViewHold
         notifyDataSetChanged();
     }
 
-//    public void setItems(List<Shelter> shelterList){
-//        shelterList = shelterList;
-//        notifyDataSetChanged();
-//    }
-
 
     @NonNull
     @Override
     public ShelterAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(com.findpet.project01.R.layout.shelter_item, null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.shelter_item, null);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ShelterAdapter.ViewHolder holder, int position) {
         Shelter shelter = shelterList.get(position);
-        holder.txnumber.setText(shelter.getNumber());
-        holder.txregdate.setText(shelter.getRegdate());
-        holder.txbreed.setText(shelter.getBreed());
-        holder.txgender.setText(shelter.getGender());
-        holder.txfindAddr.setText(shelter.getFindAddr());
-        holder.txcharacter.setText(shelter.getCharacter());
-        holder.txstatus.setText(shelter.getStatus());
-        holder.txperiod.setText(shelter.getPeriod());
-        holder.txetc.setText(shelter.getEtc());
-        holder.txregnumber.setText(shelter.getRegnumber());
-        Glide.with(holder.itemView.getContext()).load("https://www.animal.go.kr/"+shelter.getImageUrl()).into(holder.ivimage);
+        holder.txnumber.setText(shelter.getNoticeNo());
+        holder.txregdate.setText(shelter.getHappenDt());
+        holder.txbreed.setText(shelter.getKindCd());
+        holder.txgender.setText(shelter.getSexCd());
+        holder.txfindAddr.setText(shelter.getHappenPlace());
+        holder.txcharacter.setText(shelter.getSpecialMark());
+        holder.txstatus.setText(shelter.getProcessState());
+        holder.noticeSdt.setText(shelter.getNoticeSdt());
+        holder.noticeEdt.setText(shelter.getNoticeEdt());
+
+        Glide.with(holder.itemView.getContext()).load(shelter.getImage()).into(holder.ivimage);
+        holder.btnDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ShelterBoardDetail.class);
+                intent.putExtra("shelter",shelter);
+                holder.itemView.getContext().startActivity(intent);
+            }
+        });
 
     }
 
@@ -71,14 +76,15 @@ public class ShelterAdapter extends RecyclerView.Adapter<ShelterAdapter.ViewHold
         return shelterList == null ? 0 : shelterList.size();
     }
 
-    public void listFilter(List<Shelter> filteredList){
+    public void listFilter(ArrayList<Shelter> filteredList){
         shelterList = filteredList;
         notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView txnumber, txregdate, txbreed, txgender, txfindAddr, txcharacter, txstatus, txperiod, txetc, txregnumber;
+        TextView txnumber, txregdate, txbreed, txgender, txfindAddr, txcharacter, txstatus, noticeSdt, noticeEdt, txetc, txregnumber;
         ImageView ivimage;
+        Button btnDetail;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txnumber = itemView.findViewById(R.id.txnumber);
@@ -88,10 +94,10 @@ public class ShelterAdapter extends RecyclerView.Adapter<ShelterAdapter.ViewHold
             txfindAddr = itemView.findViewById(R.id.txfindAddr);
             txcharacter = itemView.findViewById(R.id.txcharacter);
             txstatus = itemView.findViewById(R.id.txstatus);
-            txperiod = itemView.findViewById(R.id.txperiod);
-            txetc = itemView.findViewById(R.id.txetc);
-            txregnumber = itemView.findViewById(R.id.txregnumber);
+            noticeSdt = itemView.findViewById(R.id.noticeSdt);
+            noticeEdt = itemView.findViewById(R.id.noticeEdt);
             ivimage = itemView.findViewById(R.id.ivimage);
+            btnDetail = itemView.findViewById(R.id.btnDetail);
         }
 
     }

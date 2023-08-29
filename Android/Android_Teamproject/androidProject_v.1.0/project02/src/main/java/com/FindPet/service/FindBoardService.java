@@ -6,8 +6,10 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.FindPet.model.FindBoard;
+import com.FindPet.model.ImgFile;
 import com.FindPet.repository.FindBoardRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class FindBoardService {
 
 	private final FindBoardRepository findBoardRepository;
+	private final ImgService imgService;
 
 	// 글 작성
 	public FindBoard insert(FindBoard findBoard) {
@@ -29,17 +32,37 @@ public class FindBoardService {
 	}
 
 	// 수정
-	@Transactional
-	public FindBoard update(FindBoard findBoard) {
-		FindBoard fb = findBoardRepository.findById(findBoard.getFindId()).get();
-		fb.setFindaddr(findBoard.getFindaddr());
-		fb.setContent(findBoard.getContent());
-		fb.setBreed(findBoard.getBreed());
-		fb.setPetname(findBoard.getPetname());
-		fb.setPetage(findBoard.getPetage());
-		fb.setPetgender(findBoard.getPetgender());
-		fb.setPetcharacter(findBoard.getPetcharacter());
-		return fb;
+	public FindBoard update(FindBoard findBoard, List<MultipartFile> imgFileList) throws Exception {
+
+		FindBoard findBoard0 = findBoardRepository.findById(findBoard.getFindId()).get();
+
+		findBoard0.findBoardUpdate(findBoard);
+
+		List<ImgFile> imgFileIds = imgService.imgFindByBoardNum(findBoard.getFindId(), null, null);
+
+		int imgCount = imgFileList.size();
+
+		for (int i = 0; i < imgCount; i++) {
+			if (i < imgFileIds.size()) {
+				imgService.updateImgFile(imgFileIds.get(i).getImgNum(), imgFileList.get(i));
+			} else {
+				ImgFile img = new ImgFile();
+				img.setFindboard(findBoard0);
+
+				if (i == 0)
+					img.setMainImg("Y");
+				else
+					img.setMainImg("N");
+
+				try {
+					imgService.saveImgFile(img, imgFileList.get(i));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return findBoard0;
 	}
 
 	// 삭제
@@ -48,30 +71,30 @@ public class FindBoardService {
 	}
 
 	// 전체보기
-	public List<FindBoard> find_list() {
-		return findBoardRepository.findAll();
+	public List<FindBoard> Find_list() {
+		 return findBoardRepository.findAllByOrderByFindIdDesc();
+		}
 
-	}
+	   public List<FindBoard> dog_find_list(String petCategory) {
 
-	public List<FindBoard> dog_find_list(String petCategory) {
+		      List<FindBoard> dog_lists = findBoardRepository.findByPetcategoryOrderByFindIdDesc(petCategory);
 
-		List<FindBoard> dog_lists = findBoardRepository.findByPetcategory(petCategory);
+		      return dog_lists;
 
-		return dog_lists;
+	   }
 
-	}
+	   public List<FindBoard> cat_find_list(String petCategory) {
+		      List<FindBoard> cat_lists = findBoardRepository.findByPetcategoryOrderByFindIdDesc(petCategory);
 
-	public List<FindBoard> cat_find_list(String petCategory) {
-		List<FindBoard> cat_lists = findBoardRepository.findByPetcategory(petCategory);
+		      return cat_lists;
+		   }
 
-		return cat_lists;
-	}
+	   public List<FindBoard> Etc_find_list(String petCategory) {
+		      List<FindBoard> etc_lists = findBoardRepository.findByPetcategoryOrderByFindIdDesc(petCategory);
 
-	public List<FindBoard> Etc_find_list(String petCategory) {
-		List<FindBoard> etc_lists = findBoardRepository.findByPetcategory(petCategory);
+		      return etc_lists;
+		   }
 
-		return etc_lists;
-	}
 
 	public List<FindBoard> all_find(String word) {
 		List<FindBoard> allfind = new ArrayList<>();

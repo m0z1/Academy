@@ -1,59 +1,112 @@
 package com.findpet.project01.Board.shelter;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.findpet.project01.Board.missingBoard.MissyouBoardList;
+import com.findpet.project01.Board.storyBoard.StoryBoardList;
+import com.findpet.project01.Main;
 import com.findpet.project01.R;
+import com.findpet.project01.account.Client;
+import com.findpet.project01.account.Member;
+import com.findpet.project01.account.MemberService;
 import com.findpet.project01.databinding.ActivityShelterBoardListBinding;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShelterBoardList extends AppCompatActivity {
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class ShelterBoardList extends AppCompatActivity{
 
     private ActivityShelterBoardListBinding binding;
 
-    String msg;
-    final Bundle bundle = new Bundle();
 
     ShelterAdapter shelterAdapter;
 
-    List<Shelter> shelterList, filteredList;
+    ArrayList<Shelter> shelterList, filteredList;
+
+    String name = "";
 
 
-    int pageNum;
+    private int pageNum;
+    private String address1
+            = "http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?"
+            + "bgnde=20230825"
+            + "&endde=20230831"
+            + "&pageNo=";
+    private String address2
+            = "&numOfRows=10"
+            + "&serviceKey=aRU%2FbtGFsBQ07Km%2F7ftuRIlm9IS%2FYqOmnj2wlwVBLz7dfog%2BRP8bCSybCocUU8syAD6DqYECTKtsJnFVohSVzw%3D%3D"
+            + "&_type=json";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shelter_board_list);
 
         binding = ActivityShelterBoardListBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        TextView membername = findViewById(R.id.memberName);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("autoLogin", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+
+        MemberService memberService = Client.getInstance().getMemberService();
+        Call<Member> call1 = memberService.findmember(username);
+        call1.enqueue(new Callback<Member>() {
+            @Override
+            public void onResponse(Call<Member> call, Response<Member> response) {
+                Member member = response.body();
+                if(member.getName()!=null) {
+                    name = member.getName().toString();
+                } else {
+                    name = "";
+                }
+                if(!name.equals("")){
+                    membername.setText(name + " 님 환영합니다");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Member> call, Throwable t) {
+
+            }
+        });
 
 
         //리사이클러뷰에 레이아웃매니저 연결
@@ -66,168 +119,261 @@ public class ShelterBoardList extends AppCompatActivity {
         shelterAdapter = new ShelterAdapter(shelterList);
         binding.recylerView.setAdapter(shelterAdapter);
 
-        getData();
+        //이미지 -> 홈으로
+        ImageView shelterImg = findViewById(R.id.ShelterImg);
+        shelterImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Main.class);
+                startActivity(intent);
+            }
+        });
 
+        // 발견자 게시판으로 가는 버튼
+        binding.goTomissing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MissyouBoardList.class);
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
+        });
+
+        // 실종 주인 게시판으로 가는 버튼
+        binding.goTomissyou.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MissyouBoardList.class);
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
+        });
+
+        //스토리 게시판으로 가는 버튼
+        binding.Story.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), StoryBoardList.class);
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
+        });
+
+        //보호소 게시판으로 가는 버튼
+        binding.protect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ShelterBoardList.class);
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
+        });
+
+        //품종 검색창
         binding.edSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
                 String searchText = binding.edSearch.getText().toString();
-                filteredList.clear();
-                if(searchText.equals("")){
+                filteredList = new ArrayList<>();
+                //filteredList.clear();
+                if (searchText.equals("")) {
                     shelterAdapter.listFilter(shelterList);
+                    binding.searchresult.setVisibility(View.INVISIBLE);
                 } else {
-                    for(int a=0; a<shelterList.size(); a++){
-                        Log.i("shelterList 사이즈: ", ""+shelterList.size());
-                        Log.i("filteredList 사이즈: ", ""+filteredList.size());
-                        if(shelterList.get(a).getBreed().toLowerCase().contains(searchText.toLowerCase())){
-                            filteredList.add(shelterList.get(a));
-                            //Log.i("filteredList 사이즈: ", ""+filteredList.size());
+                    for (int iint = 0; iint < shelterList.size(); iint++) {
+                        if (shelterList.get(iint).getKindCd().contains(searchText)) {
+                            filteredList.add(shelterList.get(iint));
+                            binding.searchresult.setVisibility(View.INVISIBLE);
+                            Log.i("filteredList 사이즈: ", ""+filteredList.size());
                         }
-//                        else if(filteredList.size()==0 && !searchText.equals("")){
-//                            Log.i("filteredList 사이즈: ", ""+filteredList.size());
-//                            Toast.makeText(getApplicationContext(), "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show();
-//                            return;
-//                        }
+                        else if(filteredList.size()==0){
+                            Log.i("filteredList 사이즈: ", ""+filteredList.size());
+                            binding.searchresult.setVisibility(View.VISIBLE);
+                            binding.searchresult.setText("검색 결과가 없습니다.");
+                            //Toast.makeText(getApplicationContext(), "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show();
+                            //return;
+                        }
+
                     }
                     shelterAdapter.listFilter(filteredList);
                 }
             }
-        });
-    }
 
-    private void getData() {
-        ShelterJsoup jsoupAsyncTask = new ShelterJsoup();
-        jsoupAsyncTask.execute();
-    }
-
-    //비동기 웹에서 크롤링
-    private class ShelterJsoup extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... voids) {
-            try {
-                for (pageNum = 1; pageNum < 16; pageNum++) {
-                    String url = "https://www.animal.go.kr/front/awtis/public/publicList.do?menuNo=1000000055&&page=" + pageNum;
-                    //Log.i("현재 주소", url + "");
-                    Log.i("페이지 번호", pageNum + "");
-                    Document doc = Jsoup.connect(url).get();
-                    Elements number = doc.select("div.boardList>ul.list>li>div.txt>dl:eq(0)>dd");
-                    Elements regdate = doc.select("div.boardList>ul.list>li>div.txt>dl:eq(1)>dd");
-                    Elements breed = doc.select("div.boardList>ul.list>li>div.txt>dl:eq(2)>dd");
-                    Elements gender = doc.select("div.boardList>ul.list>li>div.txt>dl:eq(3)>dd");
-                    Elements findAddr = doc.select("div.boardList>ul.list>li>div.txt>dl:eq(4)>dd");
-                    Elements character = doc.select("div.boardList>ul.list>li>div.txt>dl:eq(5)>dd");
-                    Elements status = doc.select("div.boardList>ul.list>li>div.txt>dl:eq(6)>dd");
-                    Elements period = doc.select("div.boardList>ul.list>li>div.txt>dl:eq(7)>dd");
-                    Elements etc = doc.select("div.boardList>ul.list>li>div.txt>dl:eq(8)>dd");
-                    Elements regnumber = doc.select("div.boardList>ul.list>li>div.txt>dl:eq(9)>dd");
-                    Elements imageUrl = doc.select("div.boardList>ul.list>li>div.photo>div.thumbnail>a>img");
-                    //Elements
-
-                    //페이지 for문 돌 때마다 새로 ArryList 만들어서 뿌리기
-                    List<String> numberList = new ArrayList<>();
-                    List<String> regdateList = new ArrayList<>();
-                    List<String> breedList = new ArrayList<>();
-                    List<String> genderList = new ArrayList<>();
-                    List<String> findAddrList = new ArrayList<>();
-                    List<String> characterList = new ArrayList<>();
-                    List<String> statusList = new ArrayList<>();
-                    List<String> periodList = new ArrayList<>();
-                    List<String> etcList = new ArrayList<>();
-                    List<String> regnumberList = new ArrayList<>();
-                    List<String> imageUrlList = new ArrayList<>();
-
-                    Handler handler = new Handler(Looper.getMainLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            for (Element element : number) {
-                                numberList.add(element.text());
-                            }
-                            for (Element element : regdate) {
-                                regdateList.add(element.text());
-                            }
-                            for (Element element : breed) {
-                                breedList.add(element.text());
-                            }
-                            for (Element element : gender) {
-                                genderList.add(element.text());
-                            }
-                            for (Element element : findAddr) {
-                                findAddrList.add(element.text());
-                            }
-                            for (Element element : character) {
-                                characterList.add(element.text());
-                            }
-                            for (Element element : status) {
-                                statusList.add(element.text());
-                            }
-                            for (Element element : period) {
-                                periodList.add(element.text());
-                            }
-                            for (Element element : etc) {
-                                etcList.add(element.text());
-                            }
-                            for (Element element : regnumber) {
-                                regnumberList.add(element.text());
-                            }
-                            for (Element element : imageUrl) {
-                                imageUrlList.add(element.attr("src"));
-                            }
-
-                            for (int i = 0; i < 9; i++) {
-                                Shelter data = new Shelter();
-                                data.setNumber(numberList.get(i));
-                                data.setRegdate(regdateList.get(i));
-                                data.setBreed(breedList.get(i));
-                                data.setGender(genderList.get(i));
-                                data.setFindAddr(findAddrList.get(i));
-                                data.setCharacter(characterList.get(i));
-                                data.setStatus(statusList.get(i));
-                                data.setPeriod(periodList.get(i));
-                                data.setEtc(etcList.get(i));
-                                data.setRegnumber(regnumberList.get(i));
-                                data.setImageUrl(imageUrlList.get(i));
-                                shelterAdapter.addItem(data);
-                            }
-
-                            //   shelterAdapter.notifyDataSetChanged();
+            @Override
+            public void afterTextChanged(Editable editable) {
+               /* String searchText = binding.edSearch.getText().toString();
+                filteredList = new ArrayList<>();
+                //filteredList.clear();
+                if (searchText.equals("")) {
+                    shelterAdapter.listFilter(shelterList);
+                } else {
+                    for (int i = 0; i < shelterList.size(); i++) {
+                        if (shelterList.get(i).getKindCd().contains(searchText)) {
+                            filteredList.add(shelterList.get(i));
+                            Log.i("filteredList 사이즈: ", ""+filteredList.size());
                         }
-                    });
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+                        else if(filteredList.size()==0){
+                            Log.i("filteredList 사이즈: ", ""+filteredList.size());
+                            Toast.makeText(getApplicationContext(), "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        }
+                    shelterAdapter.listFilter(filteredList);
+                }*/
             }
-            return null;
-        }
+        });
+
+
+
+        //데이터 받아오기
+        new Thread(){
+            @Override
+            public void run() {
+                for(pageNum=1; pageNum<6; pageNum++){
+                    List<String> noticeNoList = new ArrayList<>();
+                    List<String> happenDtList = new ArrayList<>();
+                    List<String> kindCdList = new ArrayList<>();
+                    List<String> sexCdList = new ArrayList<>();
+                    List<String> happenPlaceList = new ArrayList<>();
+                    List<String> specialMarkList = new ArrayList<>();
+                    List<String> processStateList = new ArrayList<>();
+                    List<String> noticeSdtList = new ArrayList<>();
+                    List<String> noticeEdtList = new ArrayList<>();
+                    List<String> ImageList = new ArrayList<>();
+                    List<String> colorCdList = new ArrayList<>();
+                    List<String> ageList = new ArrayList<>();
+                    List<String> weightList = new ArrayList<>();
+                    List<String> neuterYnList = new ArrayList<>();
+                    List<String> careNmList = new ArrayList<>();
+                    List<String> careTelList = new ArrayList<>();
+                    List<String> careAddrList = new ArrayList<>();
+                    List<String> orgNmList = new ArrayList<>();
+                    List<String> chargeNmList = new ArrayList<>();
+                    List<String> officetelList = new ArrayList<>();
+
+
+                    //shelterList.clear();
+                    //shelterList = new ArrayList<>();
+                    String urlAddress = address1+pageNum+address2;
+
+                    try {
+                        URL url = new URL(urlAddress);
+                        InputStream is = url.openStream();
+                        InputStreamReader isr = new InputStreamReader(is);
+                        BufferedReader reader = new BufferedReader(isr);
+                        StringBuffer buffer = new StringBuffer();
+                        String line = reader.readLine();
+                        while (line != null){
+                            buffer.append(line + "\n");
+                            line = reader.readLine();
+                        }
+                        String jsonData = buffer.toString();
+
+                        JSONObject obj = new JSONObject(jsonData);
+
+                        JSONObject response = (JSONObject)obj.get("response");
+                        JSONObject body = (JSONObject)response.get("body");
+                        JSONObject items = (JSONObject)body.get("items");
+                        JSONArray itemArr = (JSONArray)items.get("item");
+
+                        for(int i=0; i<itemArr.length(); i++) {
+                            Log.v("itemArr 사이즈", itemArr.length()+"");
+                            JSONObject temp = itemArr.getJSONObject(i);
+                            String noticeNo = temp.getString("noticeNo");
+                            String happenDt = temp.getString("happenDt");
+                            String kindCd = temp.getString("kindCd");
+                            String sexCd = temp.getString("sexCd");
+                            String happenPlace = temp.getString("happenPlace");
+                            String specialMark = temp.getString("specialMark");
+                            String processState = temp.getString("processState");
+                            String noticeSdt = temp.getString("noticeSdt");
+                            String noticeEdt = temp.getString("noticeEdt");
+                            //String noticeComment = temp.getString("noticeComment");
+                            String image = temp.getString("filename");
+                            String colorCd = temp.getString("colorCd");
+                            String age = temp.getString("age");
+                            String weight = temp.getString("weight");
+                            String neuterYn = temp.getString("neuterYn");
+                            String careNm = temp.getString("careNm");
+                            String careTel = temp.getString("careTel");
+                            String careAddr = temp.getString("careAddr");
+                            String orgNm = temp.getString("orgNm");
+                            String chargeNm = temp.getString("chargeNm");
+                            String officetel = temp.getString("officetel");
+
+
+
+                            noticeNoList.add(noticeNo);
+                            happenDtList.add(happenDt);
+                            kindCdList.add(kindCd);
+                            sexCdList.add(sexCd);
+                            happenPlaceList.add(happenPlace);
+                            specialMarkList.add(specialMark);
+                            processStateList.add(processState);
+                            noticeSdtList.add(noticeSdt);
+                            noticeEdtList.add(noticeEdt);
+                            ImageList.add(image);
+                            colorCdList.add(colorCd);
+                            ageList.add(age);
+                            weightList.add(weight);
+                            neuterYnList.add(neuterYn);
+                            careNmList.add(careNm);
+                            careTelList.add(careTel);
+                            careAddrList.add(careAddr);
+                            orgNmList.add(orgNm);
+                            chargeNmList.add(chargeNm);
+                            officetelList.add(officetel);
+                        }
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                for (int i = 0; i < 9; i++) {
+                                    Shelter data = new Shelter();
+                                    data.setNoticeNo(noticeNoList.get(i));
+                                    data.setHappenDt(happenDtList.get(i));
+                                    data.setKindCd(kindCdList.get(i));
+                                    data.setSexCd(sexCdList.get(i));
+                                    data.setHappenPlace(happenPlaceList.get(i));
+                                    data.setSpecialMark(specialMarkList.get(i));
+                                    data.setProcessState(processStateList.get(i));
+                                    data.setNoticeSdt(noticeSdtList.get(i));
+                                    data.setNoticeEdt(noticeEdtList.get(i));
+                                    data.setImage(ImageList.get(i));
+                                    data.setColorCd(colorCdList.get(i));
+                                    data.setAge(ageList.get(i));
+                                    data.setWeight(weightList.get(i));
+                                    data.setNeuterYn(neuterYnList.get(i));
+                                    data.setCareNm(careNmList.get(i));
+                                    data.setCareTel(careTelList.get(i));
+                                    data.setCareAddr(careAddrList.get(i));
+                                    data.setOrgNm(orgNmList.get(i));
+                                    data.setChargeNm(chargeNmList.get(i));
+                                    data.setOfficetel(officetelList.get(i));
+
+                                    shelterAdapter.addItem(data);
+                                    shelterAdapter.notifyDataSetChanged();
+                                }
+                            }
+                        });
+
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }.start();
+
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+
     }
 
-/*    public void searchFilter(String searchText){
-        filteredList.clear();
-       if(searchText.equals("")){
-            shelterAdapter.listFilter(shelterList);
-        } else {
-            for(int i=0; i< shelterList.size(); i++){
-                if(shelterList.get(i).getBreed().toLowerCase().contains(searchText.toLowerCase())){
-                    filteredList.add(shelterList.get(i));
-                }
-            }
-            shelterAdapter.listFilter(filteredList);
-            Log.i("리스트 사이즈: ", ""+shelterList.size());
-//        }
-//
-//    }*/
-}
+
+

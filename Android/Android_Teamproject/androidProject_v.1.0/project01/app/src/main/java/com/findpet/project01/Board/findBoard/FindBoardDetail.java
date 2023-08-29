@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
@@ -47,13 +48,15 @@ public class FindBoardDetail extends AppCompatActivity {
 
     ArrayList<FindBoard> findBoardList;
 
-    TextView txusername, txtel, txname;
+    TextView txusername, txtel, txname, membername;
 
     FindAdapter findAdapter;
 
-    String tel;
+    String tel = "";
 
-    String baseUrl = "http://10.100.102.45:8899";
+    String name = "";
+
+    String baseUrl = "http://10.100.102.44:8899";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +67,33 @@ public class FindBoardDetail extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        membername = findViewById(R.id.memberName);
         findAdapter = new FindAdapter(findBoardList);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("autoLogin", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+
+        MemberService memberService = Client.getInstance().getMemberService();
+        Call<Member> call = memberService.findmember(username);
+        call.enqueue(new Callback<Member>() {
+            @Override
+            public void onResponse(Call<Member> call, Response<Member> response) {
+                Member member = response.body();
+                if(member.getName()!=null) {
+                    name = member.getName().toString();
+                } else {
+                    name = "";
+                }
+                if(!name.equals("")){
+                    membername.setText(name + " 님 환영합니다");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Member> call, Throwable t) {
+
+            }
+        });
 
         //뒤로가기
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
@@ -97,65 +125,32 @@ public class FindBoardDetail extends AppCompatActivity {
             public void onResponse(Call<FindBoard> call, Response<FindBoard> response) {
                 FindBoard findBoard = response.body();
 
-                binding.txfinderId.setText(1+"");
-                //발견자에 유저네임 뿌리기 ----> 다시해야 함
-                MemberService memberService = Client.getInstance().getMemberService();
-                Call<Member> call2 = memberService.findmember(binding.txfinderId.getText().toString());    //멤버 아이디(username)줘야함 (글 작성할 때, member 객체에 아이디 넣어주기)
-                call2.enqueue(new Callback<Member>() {
-                    @Override
-                    public void onResponse(Call<Member> call, Response<Member> response) {
-                        Member member = response.body();
-                        binding.txfinderId.setText(member.getUsername());
-                        //findId에 스타일 적용
-                        binding.txfinderId.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
-                    }
-
-                    @Override
-                    public void onFailure(Call<Member> call, Throwable t) {
-
-                    }
-                });
-
+                if(username.equals(response.body().getMember().getUsername())) {
+                    binding.btnDelete.setVisibility(View.VISIBLE);
+                    binding.btnUpdate.setVisibility(View.VISIBLE);
+                } else if(!username.equals(response.body().getMember().getUsername())) {
+                    binding.btnDelete.setVisibility(View.INVISIBLE);
+                    binding.btnUpdate.setVisibility(View.INVISIBLE);
+                }
+                //발견자에 유저네임 뿌리기
+                binding.txfinderId.setText(response.body().getMember().getName());
+                binding.txfinderId.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
                 //발견자에 dialogView 띄우기
                 binding.txfinderId.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        txusername.setText(response.body().getMember().getUsername().toString());
+                        txtel.setText(response.body().getMember().getTel().toString());
+                        txname.setText(response.body().getMember().getName());
                         View diaglogView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.member_dialog,null);
                         AlertDialog.Builder dlg = new AlertDialog.Builder(view.getContext());
                         dlg.setTitle("연락처 상세보기");
                         dlg.setView(diaglogView);
-
-                        //finderId값을 사용해서 member 정보 가져와서 뿌리기 ---> 이것도 다시하기
-                        MemberService memberService = Client.getInstance().getMemberService();
-                        //Call<Member> call1 = memberService.findById(Long.parseLong(binding.txfinderId.getText().toString()));
-                        Call<Member> call1 = memberService.findmember((2+""));  //FindBoard의 memberId 받아와서 줘야함 (글 작성할 때 member객체에 입력)
-
-                        call1.enqueue(new Callback<Member>() {
-                            @Override
-                            public void onResponse(Call<Member> call, Response<Member> response) {
-                                Member member = response.body();
-                                txusername = diaglogView.findViewById(R.id.txusername);
-                                txtel = diaglogView.findViewById(R.id.txtel);
-                                txname = diaglogView.findViewById(R.id.txname);
-
-
-                                txname.setText(member.getName());
-                                txusername.setText(member.getUsername());
-                                txtel.setText(member.getTel());
-                                tel = member.getTel();
-                            }
-
-                            @Override
-                            public void onFailure(Call<Member> call, Throwable t) {
-
-                            }
-                        });
-
                         dlg.setPositiveButton("연락하기", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 if(tel != null) {
-                                    Uri uri = Uri.parse("tel:"+tel);
+                                    Uri uri = Uri.parse("tel:"+ txtel);
                                     Log.i("다이얼 번호:", ""+uri);
                                     Intent intent = new Intent(Intent.ACTION_DIAL, uri);
                                     view.getContext().startActivity(intent);
@@ -287,6 +282,9 @@ public class FindBoardDetail extends AppCompatActivity {
         });
 
         //로그인 정보와 작성자가 같다면 아래 버튼 생성
+
+
+
         //게시글 수정
         binding.btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override

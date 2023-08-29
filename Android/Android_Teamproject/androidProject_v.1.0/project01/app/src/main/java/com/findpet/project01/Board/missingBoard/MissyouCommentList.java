@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,6 +50,9 @@ public class MissyouCommentList extends AppCompatActivity {
         recyclerView = findViewById(R.id.rvCmt);
         btnBack2 = findViewById(R.id.btnBack2);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("autoLogin", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+
         //리사이클러 뷰 어댑터 연결
         commentList = new ArrayList<>();
         missyouCommentAdapter = new MissyouCommentAdapter(commentList);
@@ -89,19 +93,20 @@ public class MissyouCommentList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Comment comment = new Comment();
-                comment.setMember_id(Long.parseLong(1+""));
+                //comment.setMember(Long.parseLong(1+""));
                 comment.setContent(edComment.getText().toString());
-                comment.setMissing_id(missingId);
+               /* comment.setMissingBoard(missingId);*/
 
                 CommentService commentService1 = CommentClient.getInstance().getCommentService();
-                Call<Comment> call1 = commentService1.insert2(comment, missingId);
+                Call<Comment> call1 = commentService1.insert2(comment, missingId, username);
                 call1.enqueue(new Callback<Comment>() {
                     @Override
                     public void onResponse(Call<Comment> call, Response<Comment> response) {
                         edComment.setText("");
-                        if(missingId.equals(comment.getMissing_id())){
-                            missyouCommentAdapter.addItem(response.body());
-                        }
+                        //if(missingId.equals(comment.getMissingBoard())){
+                            commentList.add(response.body());
+                            missyouCommentAdapter.notifyDataSetChanged();
+                        //}
                         Toast.makeText(getApplicationContext(), "댓글 작성 완료", Toast.LENGTH_SHORT).show();
                     }
 

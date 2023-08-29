@@ -11,15 +11,33 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
-            <ImageView
-                android:id="@+id/ivimage"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
+            android:layout_height="218dp"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/ivimage"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/cat" />
+            </LinearLayout>
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnDetail"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:src="@drawable/cat" />
+                android:gravity="center"
+                android:text="상세보기"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -202,56 +220,33 @@
                     android:text="공고기간"
                     android:textColor="#BF041CB6" />
 
-                <TextView
-                    android:id="@+id/txperiod"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="공고기간 가져오기" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="64dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:background="@drawable/textview_borderline"
+                    android:layout_marginBottom="1dp"
                     android:gravity="center"
-                    android:text="기타사항"
-                    android:textColor="#BF041CB6" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/txetc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="기타사항 가져오기" />
+                    <TextView
+                        android:id="@+id/noticeSdt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:text="공고기간 가져오기" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:text="~" />
+                    <TextView
+                        android:id="@+id/noticeEdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:text="공고기간 가져오기" />
+                </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="64dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:background="@drawable/textview_borderline"
-                    android:gravity="center"
-                    android:text="등록번호"
-                    android:textColor="#BF041CB6" />
-
-                <TextView
-                    android:id="@+id/txregnumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="등록번호 가져오기" />
-            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>

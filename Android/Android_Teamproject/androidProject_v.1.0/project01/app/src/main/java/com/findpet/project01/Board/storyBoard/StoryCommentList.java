@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -50,6 +51,9 @@ public class StoryCommentList extends AppCompatActivity {
         recyclerView = findViewById(R.id.rvCmt);
         btnBack2 = findViewById(R.id.btnBack2);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("autoLogin", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+
         //리사이클러 뷰 어댑터 연결
         commentList = new ArrayList<>();
         storyCommentAdapter = new StoryCommentAdapter(commentList);
@@ -89,17 +93,16 @@ public class StoryCommentList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Comment comment = new Comment();
-                comment.setMember_id(Long.parseLong(1+""));
                 comment.setContent(edComment.getText().toString());
-                comment.setStory_id(storyId);
+
 
                 CommentService commentService1 = CommentClient.getInstance().getCommentService();
-                Call<Comment> call1 = commentService1.insert3(comment, storyId);
+                Call<Comment> call1 = commentService1.insert3(comment, storyId, username);
                 call1.enqueue(new Callback<Comment>() {
                     @Override
                     public void onResponse(Call<Comment> call, Response<Comment> response) {
                         edComment.setText("");
-                        if(storyId.equals(comment.getStory_id())){
+                        if(storyId.equals(comment.getStoryBoard())){
                             storyCommentAdapter.addItem(response.body());
                         }
                         Toast.makeText(getApplicationContext(), "댓글 작성 완료", Toast.LENGTH_SHORT).show();

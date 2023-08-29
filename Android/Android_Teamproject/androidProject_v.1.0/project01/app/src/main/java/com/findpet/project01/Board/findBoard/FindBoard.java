@@ -1,4 +1,7 @@
 package com.findpet.project01.Board.findBoard;
+import com.findpet.project01.Board.ImgFile;
+import com.findpet.project01.account.Member;
+import com.findpet.project01.comment.Comment;
 import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
@@ -18,9 +21,28 @@ public class FindBoard implements Serializable {
     private String petcharacter;
     private String petcategory;
     private String findaddr;
+    private Member member;
+    private List<ImgFile> imgFileList;
+    private List<Comment> comment;
 
     //수정
 
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public List<Comment> getComment() {
+        return comment;
+    }
+
+    public void setComment(List<Comment> comment) {
+        this.comment = comment;
+    }
 
     public FindBoard(Long findId, String breed, String content, String petname, String petage, String petgender, String petcharacter, String findaddr) {
         this.findId = findId;
@@ -33,7 +55,7 @@ public class FindBoard implements Serializable {
         this.findaddr = findaddr;
     }
 
-    private List<ImgFile> imgFileList;
+
 
     public List<ImgFile> getImgFileList() {
         return imgFileList;

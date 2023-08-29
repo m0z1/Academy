@@ -56,7 +56,55 @@
             android:textColor="#ffffff"
             android:layout_marginTop="41dp"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/goTomissing"
+            android:text="Missing"
+            android:textSize="12sp"
+            android:layout_marginLeft="10dp"
+            android:background="#FFC107"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/goTomissyou"
+            android:layout_marginLeft="10dp"
+            android:background="#FFC107"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:text="MissYou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/Story"
+            android:textSize="12sp"
+            android:layout_marginLeft="10dp"
+            android:background="#FFC107"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:text="Story"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/protect"
+            android:text="보호소"
+            android:textSize="13sp"
+            android:layout_marginLeft="10dp"
+            android:background="#FFC107"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
+    </LinearLayout>
     <View
         android:layout_width="wrap_content"
         android:layout_height="0.8dp"

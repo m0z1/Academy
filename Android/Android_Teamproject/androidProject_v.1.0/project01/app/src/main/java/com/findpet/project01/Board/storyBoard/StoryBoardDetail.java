@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
@@ -54,6 +55,8 @@ public class StoryBoardDetail extends AppCompatActivity {
 
     String basUrl = "http://10.100.102.45:8899";
 
+    String name = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +67,33 @@ public class StoryBoardDetail extends AppCompatActivity {
         setContentView(view);
 
         storyAdapter = new StoryAdapter(storyBoardList);
+
+        TextView membername = findViewById(R.id.memberName);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("autoLogin", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+
+        MemberService memberService = Client.getInstance().getMemberService();
+        Call<Member> call = memberService.findmember(username);
+        call.enqueue(new Callback<Member>() {
+            @Override
+            public void onResponse(Call<Member> call, Response<Member> response) {
+                Member member = response.body();
+                if(member.getName()!=null) {
+                    name = member.getName().toString();
+                } else {
+                    name = "";
+                }
+                if(!name.equals("")){
+                    membername.setText(name + " 님 환영합니다");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Member> call, Throwable t) {
+
+            }
+        });
 
         //이미지 클릭 -> 홈으로 이동
         binding.StoryImg.setOnClickListener(new View.OnClickListener() {

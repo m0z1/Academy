@@ -15,15 +15,15 @@ public interface CommentService {
     //<<<<<<<<<<<<<<<<<<<<<FindBoard(제보)>>>>>>>>>>>>>>>>>>//
     //전체보기
     @GET("/comment/list/{find_id}")
-    Call<List<Comment>> findAllByFindId(@Path("find_id") Long find_id);
+    Call<List<Comment>> findAllByFindId(@Path("find_id") Long findId);
 
     //추가
     @POST("/comment/insert/{find_id}")
-    Call<Comment> insert(@Body Comment comment,@Path("find_id") Long find_id);
+    Call<Comment> insert(@Body Comment comment,@Path("find_id") Long findId, @Query("username") String username);
 
     //개수
     @GET("/comment/count/{find_id}")
-    Call<Integer> count(@Path("find_id") Long find_id);
+    Call<Integer> count(@Path("find_id") Long findId);
 
     //상세보기
     @POST("/comment/view/{commentId}")
@@ -41,15 +41,15 @@ public interface CommentService {
     //<<<<<<<<<<<<<<<<<<<<<MissingBoard(실종)>>>>>>>>>>>>>>>>>>//
     //전체보기
     @GET("/comment/list2/{missing_id}")
-    Call<List<Comment>> findAllByMissingId(@Path("missing_id") Long missing_id);
+    Call<List<Comment>> findAllByMissingId(@Path("missing_id") Long missingId);
 
     //추가
     @POST("/comment/insert2/{missing_id}")
-    Call<Comment> insert2(@Body Comment comment,@Path("missing_id") Long missing_id);
+    Call<Comment> insert2(@Body Comment comment,@Path("missing_id") Long missingId,@Query("username") String username);
 
     //개수
     @GET("/comment/count2/{missing_id}")
-    Call<Integer> count2(@Path("missing_id") Long missing_id);
+    Call<Integer> count2(@Path("missing_id") Long missingId);
 
     //상세보기
     @POST("/comment/view/{commentId}")
@@ -70,15 +70,15 @@ public interface CommentService {
     //<<<<<<<<<<<<<<<<<<<<<StoryBoard(스토리)>>>>>>>>>>>>>>>>>>//
     //전체보기
     @GET("/comment/list3/{story_id}")
-    Call<List<Comment>> findAllByStoryId(@Path("story_id") Long story_id);
+    Call<List<Comment>> findAllByStoryId(@Path("story_id") Long storyId);
 
     //추가
     @POST("/comment/insert3/{story_id}")
-    Call<Comment> insert3(@Body Comment comment,@Path("story_id") Long story_id);
+    Call<Comment> insert3(@Body Comment comment,@Path("story_id") Long storyId,@Query("username") String username);
 
     //개수
     @GET("/comment/count3/{story_id}")
-    Call<Integer> count3(@Path("story_id") Long story_id);
+    Call<Integer> count3(@Path("story_id") Long storyId);
 
     //상세보기
     @POST("/comment/view/{commentId}")

@@ -44,4 +44,15 @@ public class MissingBoard {
 	
 	@OneToMany(mappedBy = "missingboard")
 	private List<Comment> comment;
+	
+	public void missingBoardUpdate(MissingBoard missingBoard) {
+		this.breed = missingBoard.getBreed();
+		this.content = missingBoard.getContent();
+		this.petname = missingBoard.getPetname();
+		this.petage = missingBoard.getPetage();
+		this.petgender = missingBoard.getPetgender();
+		this.petcharacter = missingBoard.getPetcharacter();
+		this.petcategory = missingBoard.getPetcategory();
+		this.missingaddr = missingBoard.getMissingaddr();
+	}
 }

@@ -11,9 +11,9 @@
 
         <ImageView
             android:id="@+id/petImage"
-            android:layout_width="179dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/dog" />
+            android:layout_width="500px"
+            android:layout_height="400px"
+            android:src="@drawable/noimageicon" />
 
         <LinearLayout
             android:layout_width="match_parent"

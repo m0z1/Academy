@@ -164,7 +164,7 @@ public class Login extends AppCompatActivity {
                                     //db에 저장
                                     memberjoin();
                                     Intent intent = new Intent(Login.this, Main.class);
-                                    startActivity(intent);
+                                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
                                 } else {
                                     Intent intent = new Intent(Login.this, Main.class);

@@ -11,7 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.FindPet.model.Comment;
+import com.FindPet.model.Member;
 import com.FindPet.service.CommentService;
+import com.FindPet.service.FindBoardService;
+import com.FindPet.service.MemberService;
+import com.FindPet.service.MissingBoardService;
+import com.FindPet.service.StoryBoardService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +26,10 @@ import lombok.RequiredArgsConstructor;
 public class CommentController {
 
 	private final CommentService commentService;
+	private final FindBoardService findboardService;
+	private final MemberService memberService;
+	private final MissingBoardService missingBoardService;
+	private final StoryBoardService storyBoardService;
 
 	// 공통//
 	// 상세보기
@@ -50,9 +59,11 @@ public class CommentController {
 
 	// 추가
 	@PostMapping("/insert/{find_id}")
-	public Comment insert(@RequestBody Comment comment, @PathVariable Long find_id) {
+	public Comment insert(@RequestBody Comment comment, @PathVariable Long find_id, String username) {
 		System.out.println("findId :" + find_id);
-
+		comment.setFindboard(findboardService.view(find_id));
+		Member member = memberService.findmember(username);
+		comment.setMember(member);
 		return commentService.insert(comment, find_id);
 	}
 
@@ -71,8 +82,10 @@ public class CommentController {
 
 	// 추가
 	@PostMapping("/insert2/{missing_id}")
-	public Comment insert2(@RequestBody Comment comment, @PathVariable Long missing_id) {
-
+	public Comment insert2(@RequestBody Comment comment, @PathVariable Long missing_id, String username) {
+		comment.setMissingboard(missingBoardService.view(missing_id));
+		Member member = memberService.findmember(username);
+		comment.setMember(member);
 		return commentService.insert2(comment, missing_id);
 	}
 
@@ -91,8 +104,10 @@ public class CommentController {
 
 	// 추가
 	@PostMapping("/insert3/{story_id}")
-	public Comment insert3(@RequestBody Comment comment, @PathVariable Long story_id) {
-
+	public Comment insert3(@RequestBody Comment comment, @PathVariable Long story_id, String username) {
+		comment.setStoryboard(storyBoardService.view(story_id));
+		Member member = memberService.findmember(username);
+		comment.setMember(member);
 		return commentService.insert3(comment, story_id);
 	}
 

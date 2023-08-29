@@ -1,11 +1,14 @@
 package com.findpet.project01;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -28,6 +31,7 @@ import com.findpet.project01.account.Member;
 import com.findpet.project01.account.MemberInfo;
 import com.findpet.project01.account.MemberService;
 import com.findpet.project01.databinding.ActivityMainBinding;
+import com.kakao.sdk.common.util.Utility;
 
 
 import java.util.ArrayList;
@@ -39,13 +43,18 @@ import retrofit2.Response;
 
 public class Main extends AppCompatActivity {
 
-    private FindAdapter findAdapter;
-    private MissyouAdapter missyouAdapter;
-
     ImageView movemain, memberImage;
     TextView membername;
     String name = "";
     private ActivityMainBinding binding;
+    private FindAdapter findAdapter;
+    private ArrayList<FindBoard> findList;
+
+    private MissyouAdapter missyouAdapter;
+    private ArrayList<MissingBoard> missList;
+    private RecyclerView recyclerView;
+    private RecyclerView recyclerView2;
+    //private ArrayList<MainBoard> mainList;
 
 
     @Override
@@ -54,53 +63,74 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        recyclerView = findViewById(R.id.recyclerViewAll);
+        recyclerView2 = findViewById(R.id.recyclerViewAll2);
 
         memberImage = findViewById(R.id.member);
-        movemain = findViewById(R.id.Home);
+        movemain = findViewById(R.id.movemain);
         membername = findViewById(R.id.memberName);
+
+
+        String keyHash = Utility.INSTANCE.getKeyHash(this);
+        Log.d("해시키", keyHash);
 
 
         SharedPreferences sharedPreferences = getSharedPreferences("autoLogin", MODE_PRIVATE);
         String username = sharedPreferences.getString("username", "");
 
-    /*    MemberService memberService = Client.getInstance().getMemberService();
-        Call<Member> call = memberService.findmember(username);
-        call.enqueue(new Callback<Member>() {
-            @Override
-            public void onResponse(Call<Member> call, Response<Member> response) {
-                Member member = response.body();
-                if(member.getName() == null){
-                    member.setName("unknown");
+        if(username.equals("")) {
+            membername.setText("환영합니다");
+        } else if(!username.equals("")) {
+            MemberService memberService = Client.getInstance().getMemberService();
+            Call<Member> call = memberService.findmember(username);
+            call.enqueue(new Callback<Member>() {
+                @Override
+                public void onResponse(Call<Member> call, Response<Member> response) {
+                    Member member = response.body();
+                    if(member.getName()!=null) {
+                        name = member.getName().toString();
+                    } else {
+                        name = "";
+                    }
+                    if(!name.equals("")){
+                        membername.setText(name + " 님 환영합니다");
+                    }
                 }
-                if(member.getName()!=null) {
-                    name = member.getName().toString();
-                } else {
-                    name = "unKnown";
+
+                @Override
+                public void onFailure(Call<Member> call, Throwable t) {
+
                 }
-                if(!name.equals("")){
-                    membername.setText(name + " 님 환영합니다");
-                }
-            }
+            });
+        }
 
-            @Override
-            public void onFailure(Call<Member> call, Throwable t) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Main.this,LinearLayoutManager.VERTICAL,false);
+        Log.d("linearLayoutManager",linearLayoutManager+"" );
+        findList = new ArrayList<>();
+        findAdapter = new FindAdapter(findList);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(findAdapter);
 
-            }
-        });
-*/
-
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(Main.this,LinearLayoutManager.VERTICAL,false);
+        missList =  new ArrayList<>();
+        missyouAdapter = new MissyouAdapter(missList);
+        recyclerView2.setLayoutManager(linearLayoutManager2);
+        recyclerView2.setAdapter(missyouAdapter);
 
         BoardInterface boardInterface = BoardClient.getInstance().getBoardInterface();
-
-
         Call<List<FindBoard>> call = boardInterface.find_list();
         Call<List<MissingBoard>> call2 = boardInterface.missing_list();
 
         call.enqueue(new Callback<List<FindBoard>>() {
             @Override
             public void onResponse(Call<List<FindBoard>> call, Response<List<FindBoard>> response) {
-                for (FindBoard f : response.body()){
-                    findAdapter.addItem(f);
+                int itemSize = response.body().size();
+                if(itemSize>3){
+                    itemSize = 3;
+                }
+
+                for(int i=0; i < itemSize; i++){
+                    findAdapter.addItem(response.body().get(i));
                 }
                 findAdapter.notifyDataSetChanged();
             }
@@ -114,8 +144,12 @@ public class Main extends AppCompatActivity {
         call2.enqueue(new Callback<List<MissingBoard>>() {
             @Override
             public void onResponse(Call<List<MissingBoard>> call, Response<List<MissingBoard>> response) {
-                for(MissingBoard m : response.body()){
-                    missyouAdapter.addItem(m);
+                int itemSize = response.body().size();
+                if(itemSize>3){
+                    itemSize = 3;
+                }
+                for(int i = 0 ; i < itemSize ; i++){
+                    missyouAdapter.addItem(response.body().get(i));
                 }
                 missyouAdapter.notifyDataSetChanged();
             }
@@ -137,27 +171,32 @@ public class Main extends AppCompatActivity {
         });
 
 
-        if(username != null) {
-            memberImage.setEnabled(true);
-        } else if( username == null) {
-            Intent intent = new Intent(Main.this, Login.class);
-            startActivity(intent);
+        if(!username.equals("")) {
+            memberImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Main.this, MemberInfo.class);
+                    startActivity(intent);
+                }
+            });
+        } else if(username.equals("")) {
+            memberImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Main.this, Login.class);
+                    startActivity(intent);
+                }
+            });
         }
 
-        memberImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Main.this, MemberInfo.class);
-                startActivity(intent);
-            }
-        });
+
 
         // 발견자 게시판으로 가는 버튼
         binding.goTomissing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), FindBoardList.class);
-                startActivity(intent);
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
 
@@ -184,7 +223,7 @@ public class Main extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ShelterBoardList.class);
-                startActivity(intent);
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
     }

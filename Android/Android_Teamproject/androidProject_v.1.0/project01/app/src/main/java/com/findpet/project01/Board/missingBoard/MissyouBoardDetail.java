@@ -10,12 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +35,7 @@ import com.findpet.project01.databinding.ActivityMissyouBoardDetailBinding;
 
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -52,12 +55,41 @@ public class MissyouBoardDetail extends AppCompatActivity {
 
     String tel;
 
-    String basUrl = "http://10.100.102.45:8899";
+    String baseUrl = "http://10.100.102.44:8899";
+
+    String name = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.findpet.project01.R.layout.activity_missyou_board_detail);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("autoLogin", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+
+        TextView membername = findViewById(R.id.memberName);
+
+        MemberService memberService = Client.getInstance().getMemberService();
+        Call<Member> call1 = memberService.findmember(username);
+        call1.enqueue(new Callback<Member>() {
+            @Override
+            public void onResponse(Call<Member> call, Response<Member> response) {
+                Member member = response.body();
+                if(member.getName()!=null) {
+                    name = member.getName().toString();
+                } else {
+                    name = "";
+                }
+                if(!name.equals("")){
+                    membername.setText(name + " 님 환영합니다");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Member> call, Throwable t) {
+
+            }
+        });
 
         binding = ActivityMissyouBoardDetailBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
@@ -92,66 +124,34 @@ public class MissyouBoardDetail extends AppCompatActivity {
 
         //상세 내용 받아오기
         BoardInterface boardInterface = BoardClient.getInstance().getBoardInterface();
-        Call<MissingBoard> call1 = boardInterface.view2(missingId);
-        call1.enqueue(new Callback<MissingBoard>() {
+        Call<MissingBoard> call = boardInterface.view2(missingId);
+        call.enqueue(new Callback<MissingBoard>() {
             @Override
             public void onResponse(Call<MissingBoard> call, Response<MissingBoard> response) {
                 MissingBoard missingBoard = response.body();
 
-                binding.txfinderId.setText(1+"");
-                //발견자에 유저네임 뿌리기 ----> 다시해야 함
-                MemberService memberService = Client.getInstance().getMemberService();
-                Call<Member> call2 = memberService.findmember(binding.txfinderId.getText().toString());    //멤버 아이디 줘야함 (글 작성할 때, member 객체에 아이디 넣어주기)
-                call2.enqueue(new Callback<Member>() {
-                    @Override
-                    public void onResponse(Call<Member> call, Response<Member> response) {
-                        Member member = response.body();
-                        binding.txfinderId.setText(member.getUsername());
-                        //findId에 스타일 적용
-                        binding.txfinderId.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
-                    }
-
-                    @Override
-                    public void onFailure(Call<Member> call, Throwable t) {
-
-                    }
-                });
+                if(username.equals(response.body().getMember().getUsername())) {
+                    binding.btnDelete.setVisibility(View.VISIBLE);
+                    binding.btnUpdate.setVisibility(View.VISIBLE);
+                } else if(!username.equals(response.body().getMember().getUsername())) {
+                    binding.btnDelete.setVisibility(View.INVISIBLE);
+                    binding.btnUpdate.setVisibility(View.INVISIBLE);
+                }
+                //발견자에 유저네임 뿌리기
+                binding.txfinderId.setText(response.body().getMember().getUsername());
+                binding.txfinderId.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 
                 //발견자에 dialogView 띄우기
                 binding.txfinderId.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        txusername.setText(response.body().getMember().getUsername().toString());
+                        txtel.setText(response.body().getMember().getTel().toString());
+                        txname.setText(response.body().getMember().getName());
                         View diaglogView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.member_dialog,null);
                         AlertDialog.Builder dlg = new AlertDialog.Builder(view.getContext());
                         dlg.setTitle("연락처 상세보기");
                         dlg.setView(diaglogView);
-
-                        //finderId값을 사용해서 member 정보 가져와서 뿌리기 ---> 이것도 다시하기
-                        MemberService memberService = Client.getInstance().getMemberService();
-                        //Call<Member> call1 = memberService.findById(Long.parseLong(binding.txfinderId.getText().toString()));
-                        Call<Member> call1 = memberService.findmember((1+""));  //MissingBoard의 memberusername 받아와서 줘야함 (글 작성할 때 member객체에 입력)
-
-                        call1.enqueue(new Callback<Member>() {
-                            @Override
-                            public void onResponse(Call<Member> call, Response<Member> response) {
-                                Member member = response.body();
-                                txusername = diaglogView.findViewById(R.id.txusername);
-                                txtel = diaglogView.findViewById(R.id.txtel);
-                                txname = diaglogView.findViewById(R.id.txname);
-
-
-                                txname.setText(member.getName());
-                                txusername.setText(member.getUsername());
-                                txtel.setText(member.getTel());
-                                tel = member.getTel();
-                            }
-
-                            @Override
-                            public void onFailure(Call<Member> call, Throwable t) {
-
-                            }
-                        });
-
                         dlg.setPositiveButton("연락하기", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -181,6 +181,18 @@ public class MissyouBoardDetail extends AppCompatActivity {
                 binding.txpetage.setText(missingBoard.getPetage());
                 binding.txPetName.setText(missingBoard.getPetname());
 
+                if(response.body().getImgFileList()!=null) {
+                    Log.d("imgFileList.size", "size : " + response.body().getImgFileList().size());
+                    for(int i = 0; i < response.body().getImgFileList().size(); i++) {
+                        List<ImageView> viewList = Arrays.asList(binding.img1, binding.img2, binding.img3);
+
+                        Glide.with(getApplicationContext())
+                                .load(baseUrl + response.body().getImgFileList().get(i).getImgUrl())
+                                .override(500)
+                                .into(viewList.get(i));
+                    }
+                }
+
                 //날짜 포맷 변경
                 Calendar cal = Calendar.getInstance();
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -188,7 +200,7 @@ public class MissyouBoardDetail extends AppCompatActivity {
 
                 binding.txregdate.setText(date);
 
-                //이미지 받아오기
+                /*//이미지 받아오기
                 Glide.with(getApplicationContext())
                         .load(basUrl+response.body().getImgFileList().get(0).getImgUrl())
                         .override(500,400)
@@ -200,7 +212,7 @@ public class MissyouBoardDetail extends AppCompatActivity {
                 Glide.with(getApplicationContext())
                         .load(basUrl+response.body().getImgFileList().get(2).getImgUrl())
                         .override(500,400)
-                        .into(binding.img3);
+                        .into(binding.img3);*/
             }
 
             @Override

@@ -36,7 +36,7 @@ public class MissyouCommentAdapter extends RecyclerView.Adapter<MissyouCommentAd
     //추가
     public void addItem(Comment comment){
         commentList.add(comment);
-        notifyDataSetChanged();
+        //notifyDataSetChanged();
     }
 
     //삭제

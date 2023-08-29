@@ -1,6 +1,7 @@
 package com.findpet.project01.Board.missingBoard;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,16 @@ public class MissyouAdapter extends RecyclerView.Adapter<MissyouAdapter.MissyouV
 
     private List<MissingBoard> missingBoardList;
 
+    public interface  OnItemClickListener{
+        void OnItemClick(int pos);
+    }
+
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
+    }
+
     String baseUrl = "http://10.100.102.44:8899";
 
     public MissyouAdapter(List<MissingBoard> missingBoardList) {
@@ -44,6 +55,11 @@ public class MissyouAdapter extends RecyclerView.Adapter<MissyouAdapter.MissyouV
         notifyDataSetChanged();
     }
 
+    public void removeAllItem(List<MissingBoard> missingBoardList) {
+        missingBoardList.removeAll(missingBoardList);
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public MissyouViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -57,7 +73,15 @@ public class MissyouAdapter extends RecyclerView.Adapter<MissyouAdapter.MissyouV
 
         holder.petcharacter.setText(missingBoard.getPetcharacter());
         holder.petgender.setText(missingBoard.getPetgender());
-        //holder.ivimage.setImageResource(R.drawable.dog);
+        if(missingBoard.getImgFileList().size() != 0) {
+            Glide.with(holder.itemView.getContext())
+                    .load(baseUrl+missingBoard.getImgFileList().get(0).getImgUrl())
+                    .override(500,400)
+                    .into(holder.petImage);
+            Log.d("url", missingBoard.getImgFileList().get(0).getImgUrl());
+        } else if(missingBoard.getImgFileList().size() == 0) {
+
+        }
         holder.findaddr.setText(missingBoard.getMissingaddr());
         holder.breed.setText(missingBoard.getBreed());
         holder.petCategory.setText(missingBoard.getPetcategory());
@@ -104,18 +128,25 @@ public class MissyouAdapter extends RecyclerView.Adapter<MissyouAdapter.MissyouV
         return missingBoardList == null? 0 : missingBoardList.size();
     }
 
+
     class MissyouViewHolder extends RecyclerView.ViewHolder {
-        ImageView ivimage;
-        TextView breed, petgender,findaddr,petcharacter,petCategory;
+        ImageView petImage;
+        TextView breed, petgender, findaddr, petcharacter, petCategory;
         public MissyouViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivimage = itemView.findViewById(R.id.ivimage);
-
+            petImage = itemView.findViewById(R.id.petImage);
             breed = itemView.findViewById(R.id.Breed);
             petgender = itemView.findViewById(R.id.petGender);
             findaddr = itemView.findViewById(R.id.findAddr);
             petcharacter = itemView.findViewById(R.id.petCharacter);
             petCategory = itemView.findViewById(R.id.petCategory);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemClickListener.OnItemClick(getAdapterPosition());
+                }
+            });
         }
     }
 }

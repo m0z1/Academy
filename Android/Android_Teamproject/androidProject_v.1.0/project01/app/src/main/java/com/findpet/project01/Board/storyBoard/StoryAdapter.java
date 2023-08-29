@@ -1,6 +1,7 @@
 package com.findpet.project01.Board.storyBoard;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.bumptech.glide.Glide;
 import com.findpet.project01.R;
 
 import java.text.SimpleDateFormat;
@@ -20,6 +22,7 @@ import java.util.List;
 
 public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHolder> {
     private List<StoryBoard> storyList;
+    private  String baseUrl = "http://10.100.102.44:8899";
 
     public StoryAdapter(List<StoryBoard> storyList) {
         this.storyList = storyList;
@@ -40,7 +43,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
     @NonNull
     @Override
     public StoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.story_item, null);
         return new StoryViewHolder(view);
     }
 
@@ -48,8 +51,18 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
     @Override
     public void onBindViewHolder(@NonNull StoryViewHolder holder, int position) {
         StoryBoard storyBoard = storyList.get(position);
+        Log.d("story", storyBoard.getTitle()+"");
+        if(storyBoard.getImgFileList().size() != 0) {
+            Glide.with(holder.itemView.getContext())
+                    .load(baseUrl+storyBoard.getImgFileList().get(0).getImgUrl())
+                    .override(500,400)
+                    .into(holder.storyimage);
+            Log.d("url", storyBoard.getImgFileList().get(0).getImgUrl());
+        } else if(storyBoard.getImgFileList().size() == 0) {
 
-        holder.txTitle.setText(storyBoard.getTitle());
+        }
+        holder.storyTitle.setText(storyBoard.getTitle());
+        holder.storyContent.setText(storyBoard.getContent());
         Long storyId = storyBoard.getStoryId();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,12 +73,12 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
             }
         });
 
-        //날짜 포맷 변경
+        /*//날짜 포맷 변경
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date = simpleDateFormat.format(storyBoard.getRegdate());
 
-        holder.txregdate.setText(date);
+        holder.txregdate.setText(date);*/
     }
 
     @Override
@@ -74,14 +87,15 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
     }
 
     class StoryViewHolder extends RecyclerView.ViewHolder {
-        ImageView ivimage;
-        TextView txTitle, txregdate;
+        ImageView storyimage;
+        TextView storyTitle, txregdate, storyContent;
 
         public StoryViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivimage = itemView.findViewById(R.id.ivimage);
-            txTitle = itemView.findViewById(R.id.txTitle);
+            storyimage = itemView.findViewById(R.id.storyImage);
+            storyTitle = itemView.findViewById(R.id.Storytitle);
             txregdate = itemView.findViewById(R.id.txregdate);
+            storyContent = itemView.findViewById(R.id.Storycontent);
         }
     }
 

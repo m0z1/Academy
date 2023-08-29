@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,6 +40,9 @@ public class MissingBoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMissingBoardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        SharedPreferences sharedPreferences = getSharedPreferences("autoLogin", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
 
         filePathList.add(null);
         filePathList.add(null);
@@ -114,12 +118,14 @@ public class MissingBoardActivity extends AppCompatActivity {
 
 
             BoardInterface boardInterFace = BoardClient.getInstance().getBoardInterface();
-            Call<String> call = boardInterFace.saveMissingBoard(imgFileList,map);
+            Call<String> call = boardInterFace.saveMissingBoard(imgFileList,map, username);
             call.enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
                     Log.d("MissingBoard 등록 Response", "등록성공");
-                    finish();
+                    Intent intent = new Intent(MissingBoardActivity.this, MissyouBoardList.class);
+                    startActivity(intent);
+                    //finish();
                 }
 
                 @Override

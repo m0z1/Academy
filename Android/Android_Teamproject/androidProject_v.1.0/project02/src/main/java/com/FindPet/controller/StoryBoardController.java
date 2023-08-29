@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.FindPet.model.ImgFile;
+import com.FindPet.model.Member;
 import com.FindPet.model.StoryBoard;
 import com.FindPet.repository.ImgRepository;
 import com.FindPet.service.ImgService;
+import com.FindPet.service.MemberService;
 import com.FindPet.service.StoryBoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -30,14 +32,17 @@ public class StoryBoardController {
 	private String imgLocation;
 	private final ImgService imgService;
 	private final ImgRepository imgRepository;
-
+	private final MemberService memberService;
 	private final StoryBoardService storyBoardService;
 
 	@PostMapping("insert")
 	public String insert(@RequestParam(value = "imgFile", required = false) List<MultipartFile> imgFileList,
-			StoryBoard storyBoard) {
+			StoryBoard storyBoard, String username) {
 
 		System.out.println("StoryBoard insert");
+		
+		Member member = memberService.findmember(username);
+		storyBoard.setMember(memberService.findmember(username.replaceAll("\"", "")));
 
 		StoryBoard storyBoard2 = storyBoardService.insert(storyBoard);
 		if (imgFileList != null) {
@@ -74,9 +79,22 @@ public class StoryBoardController {
 	}
 
 	// 수정
-	@PostMapping("/update")
-	public StoryBoard update(@RequestBody StoryBoard storyBoard) {
-		return storyBoardService.update(storyBoard);
+	@PostMapping("update")
+	public StoryBoard update( 
+			@RequestParam(value="imgFile", required = false) List<MultipartFile> imgFileList,
+			StoryBoard storyBoard) {
+
+
+            try {
+            	StoryBoard storyBoard0 = storyBoardService.update(storyBoard, imgFileList);
+				System.out.println("update storyBoard : " + storyBoard0.getStoryId());
+				return storyBoard0;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
+            
 	}
 
 	// 삭제

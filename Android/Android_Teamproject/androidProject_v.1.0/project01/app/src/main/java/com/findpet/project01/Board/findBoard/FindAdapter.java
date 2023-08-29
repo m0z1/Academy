@@ -1,5 +1,6 @@
 package com.findpet.project01.Board.findBoard;
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.findpet.project01.R;
 
 import java.text.SimpleDateFormat;
@@ -19,6 +21,8 @@ import java.util.Calendar;
 import java.util.List;
 
 public class FindAdapter extends RecyclerView.Adapter<FindAdapter.MissingViewHolder> {
+
+    String baseUrl = "http://10.100.102.44:8899";
 
     private ArrayList<FindBoard> findBoardList;
 
@@ -65,7 +69,15 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.MissingViewHol
         FindBoard findBoard = findBoardList.get(position);
         holder.petcharacter.setText(findBoard.getPetcharacter());
         holder.petgender.setText(findBoard.getPetgender());
-        holder.petImage.setImageResource(R.drawable.dog);
+        if(findBoard.getImgFileList().size() != 0) {
+            Glide.with(holder.itemView.getContext())
+                    .load(baseUrl+findBoard.getImgFileList().get(0).getImgUrl())
+                    .override(500,400)
+                    .into(holder.petImage);
+            Log.d("url", findBoard.getImgFileList().get(0).getImgUrl());
+        } else if(findBoard.getImgFileList().size() == 0) {
+
+        }
         holder.findaddr.setText(findBoard.getFindaddr());
         holder.breed.setText(findBoard.getBreed());
         holder.petCategory.setText(findBoard.getPetcategory());
@@ -86,7 +98,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.MissingViewHol
 
     class MissingViewHolder extends RecyclerView.ViewHolder {
         ImageView petImage;
-        TextView breed, petgender,findaddr,petcharacter,petCategory;
+        TextView breed, petgender, findaddr, petcharacter, petCategory;
         public MissingViewHolder(@NonNull View itemView) {
             super(itemView);
             petImage = itemView.findViewById(R.id.petImage);

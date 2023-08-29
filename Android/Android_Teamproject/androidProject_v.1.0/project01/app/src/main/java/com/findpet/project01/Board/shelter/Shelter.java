@@ -1,107 +1,232 @@
 package com.findpet.project01.Board.shelter;
 
 
-public class Shelter {
-    private String number;
-    private String regdate;
-    private String breed;
-    private String gender;
-    private String findAddr;
-    private String character;
-    private String status;
-    private String period;
-    private String etc;
-    private String regnumber;
-    private String imageUrl;
+import java.io.Serializable;
 
-    public Shelter() {
+public class Shelter implements Serializable {
+    //공고번호
+    private String noticeNo;
+
+    //접수일자 & 구조일자
+    private String happenDt;
+
+    //품종
+    private String kindCd;
+
+    //성별(M: 수컷 / F: 암컷 /Q: 미상)
+    private String sexCd;
+
+    //발견장소
+    private String happenPlace;
+
+    //특징
+    private String specialMark;
+
+    //상태(보호중/공고중)
+    private String processState;
+
+    //공고시작일
+    private String noticeSdt;
+
+    //공고종료일
+    private String noticeEdt;
+
+    //특이사항
+    private String noticeComment;
+
+    //이미지
+    private String Image;
+
+    //털색
+    private String colorCd;
+
+    private String age;
+
+    private String weight;
+
+    //중성화 여부
+    private String neuterYn;
+
+    //보호소 이름
+    private String careNm;
+
+    private String careTel;
+
+    private String careAddr;
+
+    //관할기관
+    private String orgNm;
+
+    //담당자
+    private String chargeNm;
+
+    private String officetel;
+
+    public String getColorCd() {
+        return colorCd;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public void setColorCd(String colorCd) {
+        this.colorCd = colorCd;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public String getAge() {
+        return age;
     }
 
-    public String getNumber() {
-        return number;
+    public void setAge(String age) {
+        this.age = age;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public String getWeight() {
+        return weight;
     }
 
-    public String getRegdate() {
-        return regdate;
+    public void setWeight(String weight) {
+        this.weight = weight;
     }
 
-    public void setRegdate(String regdate) {
-        this.regdate = regdate;
+    public String getNeuterYn() {
+        return neuterYn;
     }
 
-    public String getBreed() {
-        return breed;
+    public void setNeuterYn(String neuterYn) {
+        this.neuterYn = neuterYn;
     }
 
-    public void setBreed(String breed) {
-        this.breed = breed;
+    public String getCareNm() {
+        return careNm;
     }
 
-    public String getGender() {
-        return gender;
+    public void setCareNm(String careNm) {
+        this.careNm = careNm;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public String getCareTel() {
+        return careTel;
     }
 
-    public String getFindAddr() {
-        return findAddr;
+    public void setCareTel(String careTel) {
+        this.careTel = careTel;
     }
 
-    public void setFindAddr(String findAddr) {
-        this.findAddr = findAddr;
+    public String getCareAddr() {
+        return careAddr;
     }
 
-    public String getCharacter() {
-        return character;
+    public void setCareAddr(String careAddr) {
+        this.careAddr = careAddr;
     }
 
-    public void setCharacter(String character) {
-        this.character = character;
+    public String getOrgNm() {
+        return orgNm;
     }
 
-    public String getStatus() {
-        return status;
+    public void setOrgNm(String orgNm) {
+        this.orgNm = orgNm;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public String getChargeNm() {
+        return chargeNm;
     }
 
-    public String getPeriod() {
-        return period;
+    public void setChargeNm(String chargeNm) {
+        this.chargeNm = chargeNm;
     }
 
-    public void setPeriod(String period) {
-        this.period = period;
+    public String getOfficetel() {
+        return officetel;
     }
 
-    public String getEtc() {
-        return etc;
+    public void setOfficetel(String officetel) {
+        this.officetel = officetel;
     }
 
-    public void setEtc(String etc) {
-        this.etc = etc;
+    public String getNoticeNo() {
+        return noticeNo;
     }
 
-    public String getRegnumber() {
-        return regnumber;
+    public void setNoticeNo(String noticeNo) {
+        this.noticeNo = noticeNo;
     }
 
-    public void setRegnumber(String regnumber) {
-        this.regnumber = regnumber;
+    public String getHappenDt() {
+        return happenDt;
+    }
+
+    public void setHappenDt(String happenDt) {
+        this.happenDt = happenDt;
+    }
+
+    public String getKindCd() {
+        return kindCd;
+    }
+
+    public void setKindCd(String kindCd) {
+        this.kindCd = kindCd;
+    }
+
+    public String getSexCd() {
+        return sexCd;
+    }
+
+    public void setSexCd(String sexCd) {
+        this.sexCd = sexCd;
+    }
+
+    public String getHappenPlace() {
+        return happenPlace;
+    }
+
+    public void setHappenPlace(String happenPlace) {
+        this.happenPlace = happenPlace;
+    }
+
+    public String getSpecialMark() {
+        return specialMark;
+    }
+
+    public void setSpecialMark(String specialMark) {
+        this.specialMark = specialMark;
+    }
+
+    public String getProcessState() {
+        return processState;
+    }
+
+    public void setProcessState(String processState) {
+        this.processState = processState;
+    }
+
+    public String getNoticeSdt() {
+        return noticeSdt;
+    }
+
+    public void setNoticeSdt(String noticeSdt) {
+        this.noticeSdt = noticeSdt;
+    }
+
+    public String getNoticeEdt() {
+        return noticeEdt;
+    }
+
+    public void setNoticeEdt(String noticeEdt) {
+        this.noticeEdt = noticeEdt;
+    }
+
+    public String getNoticeComment() {
+        return noticeComment;
+    }
+
+    public void setNoticeComment(String noticeComment) {
+        this.noticeComment = noticeComment;
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
     }
 }

@@ -1,7 +1,9 @@
 package com.findpet.project01.Board.storyBoard;
 
 
-import com.findpet.project01.Board.findBoard.ImgFile;
+import com.findpet.project01.Board.ImgFile;
+import com.findpet.project01.account.Member;
+import com.findpet.project01.comment.Comment;
 import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
@@ -16,13 +18,30 @@ public class StoryBoard implements Serializable {
     private String content;
 
     private List<ImgFile> imgFileList;
-
+    private List<Comment> comment;
+    private Member member;
     private Date regdate;
 
     public StoryBoard(Long storyId, String title, String content) {
         this.storyId = storyId;
         this.title = title;
         this.content = content;
+    }
+
+    public List<Comment> getComment() {
+        return comment;
+    }
+
+    public void setComment(List<Comment> comment) {
+        this.comment = comment;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     public Date getRegdate() {

@@ -9,7 +9,7 @@ import com.FindPet.model.FindBoard;
 public interface FindBoardRepository extends JpaRepository<FindBoard, Long> {
 	
 	/* Find  Search - 2023-08-18 */
-	List<FindBoard> findByPetcategory(String petCategory);
+	List<FindBoard> findByPetcategoryOrderByFindIdDesc(String petCategory);
 	
 	List<FindBoard> findByBreedContaining(String word);
 	
@@ -24,4 +24,6 @@ public interface FindBoardRepository extends JpaRepository<FindBoard, Long> {
 	List<FindBoard> findByPetcharacterContaining(String word);
 	
 	List<FindBoard> findByFindaddrContaining(String word);
+	
+	List<FindBoard> findAllByOrderByFindIdDesc();
 }

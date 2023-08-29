@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,6 +41,9 @@ public class StoryBoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityStoryBoardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        SharedPreferences sharedPreferences = getSharedPreferences("autoLogin", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
 
         filePathList.add(null);
         filePathList.add(null);
@@ -94,12 +98,13 @@ public class StoryBoardActivity extends AppCompatActivity {
 
 
             BoardInterface boardInterFace = BoardClient.getInstance().getBoardInterface();
-            Call<String> call = boardInterFace.saveStoryBoard(imgFileList,map);
+            Call<String> call = boardInterFace.saveStoryBoard(imgFileList,map,username);
             call.enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
                     Log.d("StoryBoard 등록 Response", "등록성공");
-                    finish();
+                    Intent intent = new Intent(StoryBoardActivity.this, StoryBoardList.class);
+                    startActivity(intent);
                 }
 
                 @Override

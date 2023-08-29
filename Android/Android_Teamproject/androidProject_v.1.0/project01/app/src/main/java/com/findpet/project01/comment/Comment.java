@@ -1,16 +1,21 @@
 package com.findpet.project01.comment;
 
+import com.findpet.project01.Board.findBoard.FindBoard;
+import com.findpet.project01.Board.missingBoard.MissingBoard;
+import com.findpet.project01.Board.storyBoard.StoryBoard;
+import com.findpet.project01.account.Member;
+
 public class Comment {
     private Long commentId;
     private String content;
 
-    private Long find_id;
+    private FindBoard findBoard;
 
-    private Long member_id;
+    private Member member;
 
-    private Long story_id;
+    private StoryBoard storyBoard;
 
-    private Long missing_id;
+    private MissingBoard missingBoard;
 
     public Comment() {
     }
@@ -18,6 +23,38 @@ public class Comment {
     public Comment(Long commentId, String content) {
         this.commentId = commentId;
         this.content = content;
+    }
+
+    public FindBoard getFindBoard() {
+        return findBoard;
+    }
+
+    public void setFindBoard(FindBoard findBoard) {
+        this.findBoard = findBoard;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public StoryBoard getStoryBoard() {
+        return storyBoard;
+    }
+
+    public void setStoryBoard(StoryBoard storyBoard) {
+        this.storyBoard = storyBoard;
+    }
+
+    public MissingBoard getMissingBoard() {
+        return missingBoard;
+    }
+
+    public void setMissingBoard(MissingBoard missingBoard) {
+        this.missingBoard = missingBoard;
     }
 
     public Long getCommentId() {
@@ -36,35 +73,4 @@ public class Comment {
         this.content = content;
     }
 
-    public Long getFind_id() {
-        return find_id;
-    }
-
-    public void setFind_id(Long find_id) {
-        this.find_id = find_id;
-    }
-
-    public Long getMember_id() {
-        return member_id;
-    }
-
-    public void setMember_id(Long member_id) {
-        this.member_id = member_id;
-    }
-
-    public Long getStory_id() {
-        return story_id;
-    }
-
-    public void setStory_id(Long story_id) {
-        this.story_id = story_id;
-    }
-
-    public Long getMissing_id() {
-        return missing_id;
-    }
-
-    public void setMissing_id(Long missing_id) {
-        this.missing_id = missing_id;
-    }
 }

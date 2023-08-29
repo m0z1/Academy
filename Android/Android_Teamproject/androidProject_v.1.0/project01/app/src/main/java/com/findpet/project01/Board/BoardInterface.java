@@ -24,46 +24,44 @@ import retrofit2.http.Query;
 
 public interface BoardInterface {
 
-    //<<<<<<<< 메인 (Main) 게시판 >>>>>>>>//
+    //<<<<<<<<< 발견 (FindBoard) 게시판 >>>>>>>>//
 
-    @GET("/main/all")
-    Call<Void> all();
-
-    //<<<<<<<<< 목격 (FindBoard) 게시판 >>>>>>>>//
-
-    //목격 게시판 작성
+    //발견 게시판 작성
     @Multipart
     @POST("findBoard/insert")
-    Call<String> saveFindBoard(@Part List<MultipartBody.Part> imgFileList, @PartMap Map<String, RequestBody> findBoard);
-//    @POST("/findBoard/insert")
-//    Call<FindBoard> save(@Body FindBoard findBoard);
+    Call<String> saveFindBoard(
+            @Part List<MultipartBody.Part> imgFileList,
+            @PartMap Map<String, RequestBody> findBoard,
+            @Part("username") String username);
 
-    //목격 게시판 상세보기
-    @GET("findBoard/view")
+    //발견 게시판 상세보기
+    @GET("/findBoard/view")
     Call<FindBoard> view(@Query("findId") Long findId);
     
-    //목격 게시판 수정
-    @POST("findBoard/update")
+    //발견 게시판 수정
+    @POST("/findBoard/update")
     Call<FindBoard> update1(@Body FindBoard findBoard);
 
-    //목격 게시판 삭제
-    @DELETE("findBoard/delete/{findId}")
+    //발견 게시판 삭제
+    @DELETE("/findBoard/delete/{findId}")
     Call<Void> deleteById1(@Path("findId") Long findId);
 
-    //목격 게시판 전체보기
-    @GET("findBoard/list")
+    //발견 게시판 전체보기
+    @GET("/findBoard/list")
     Call<List<FindBoard>> find_list();
 
-    @GET("findBoard/findAll/{word}")
+    //발견 게시판 검색
+    @GET("/findBoard/findAll/{word}")
     Call<List<FindBoard>> findAll(@Path("word") String word);
 
-
-    @GET("findBoard/findDog/{petcategory}")
+    //강아지 태그
+    @GET("/findBoard/findDog/{petcategory}")
     Call<List<FindBoard>> findDog(@Path("petcategory") String petcategory);
-    @GET("findBoard/findCat/{petcategory}")
+    //고양이 태그
+    @GET("/findBoard/findCat/{petcategory}")
     Call<List<FindBoard>> findCat(@Path("petcategory") String petcategory);
-
-    @GET("findBoard/findEtc/{petcategory}")
+    //기타 태그
+    @GET("/findBoard/findEtc/{petcategory}")
     Call<List<FindBoard>> findEtc(@Path("petcategory") String petcategory );
 
 
@@ -79,7 +77,8 @@ public interface BoardInterface {
 
     @Multipart
     @POST("missingBoard/insert")
-    Call<String> saveMissingBoard(@Part List<MultipartBody.Part> imgFileList, @PartMap Map<String, RequestBody> missingBoard);
+    Call<String> saveMissingBoard(@Part List<MultipartBody.Part> imgFileList, @PartMap Map<String, RequestBody> missingBoard
+    , @Part("username") String username);
 //    @POST("/missingBoard/insert")
 //    Call<MissingBoard> save(@Body MissingBoard missingBoard);
     
@@ -100,14 +99,18 @@ public interface BoardInterface {
     @GET("/missingBoard/list")
     Call<List<MissingBoard>> missing_list();
 
-    @GET("/missingBoard/findDog")
-    Call<List<MissingBoard>> MissingDog();
+    //검색
+    @GET("/missingBoard/findAll/{word}")
+    Call<List<MissingBoard>> findAll_miss(@Path("word") String word);
 
-    @GET("/missingBoard/findCat")
-    Call<List<MissingBoard>> MissingCat();
+    @GET("/missingBoard/findDog/{petcategory}")
+    Call<List<MissingBoard>> MissingDog(@Path("petcategory") String petcategory);
 
-    @GET("/missingBoard/findEtc")
-    Call<List<MissingBoard>> MissingEtc();
+    @GET("/missingBoard/findCat/{petcategory}")
+    Call<List<MissingBoard>> MissingCat(@Path("petcategory") String petcategory);
+
+    @GET("/missingBoard/findEtc/{petcategory}")
+    Call<List<MissingBoard>> MissingEtc(@Path("petcategory") String petcategory);
 
 
 
@@ -117,14 +120,12 @@ public interface BoardInterface {
 
     //<<<<<<<<< 스토리 (StoryBoard) 게시판 >>>>>>>>//
 
-
+    //스토리 게시판 작성
     @Multipart
     @POST("storyBoard/insert")
-    Call<String> saveStoryBoard(@Part List<MultipartBody.Part> imgFileList, @PartMap Map<String, RequestBody> storyBoard);
-
-    //스토리 게시판 작성
-    @POST("/storyBoard/insert")
-    Call<StoryBoard> save(@Body StoryBoard storyBoard);
+    Call<String> saveStoryBoard(@Part List<MultipartBody.Part> imgFileList,
+                                @PartMap Map<String, RequestBody> storyBoard,
+                                @Part("username") String username);
 
     //스토리 게시판 상세보기
     @GET("/storyBoard/view3")

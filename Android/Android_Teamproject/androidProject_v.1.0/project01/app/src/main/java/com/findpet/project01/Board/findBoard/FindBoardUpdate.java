@@ -32,7 +32,7 @@ public class FindBoardUpdate extends AppCompatActivity {
 
     private ActivityFindBoardUpdateBinding binding;
 
-    String basUrl = "http://10.100.102.45:8899";
+    String basUrl = "http://10.100.102.44:8899";
 
     private ArrayList<Uri> filePathList = new ArrayList<>(3);
 

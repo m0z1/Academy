@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="#ffffff"
     tools:context=".Main">
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +38,7 @@
 
 
         <ImageView
-            android:id="@+id/Home"
+            android:id="@+id/movemain"
             android:layout_width="243dp"
             android:layout_height="match_parent"
             android:src="@drawable/main" />
@@ -68,7 +72,7 @@
                 android:text="Missing"
                 android:textSize="12sp"
                 android:layout_marginLeft="10dp"
-                android:background="#bfff00"
+                android:background="#FFC107"
                 android:textColor="#ffffff"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
@@ -76,7 +80,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/goTomissyou"
                 android:layout_marginLeft="10dp"
-                android:background="#bfff00"
+                android:background="#FFC107"
                 android:textColor="#ffffff"
                 android:textStyle="bold"
                 android:textSize="12sp"
@@ -87,7 +91,7 @@
                 android:id="@+id/Story"
                 android:textSize="12sp"
                 android:layout_marginLeft="10dp"
-                android:background="#bfff00"
+                android:background="#FFC107"
                 android:textColor="#ffffff"
                 android:textStyle="bold"
                 android:text="Story"
@@ -98,7 +102,7 @@
                 android:text="보호소"
                 android:textSize="13sp"
                 android:layout_marginLeft="10dp"
-                android:background="#bfff00"
+                android:background="#FFC107"
                 android:textColor="#ffffff"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
@@ -115,11 +119,9 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchViewFind"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            app:iconifiedByDefault="false"
-            android:layout_marginRight="9dp" />
+            android:layout_width="304dp"
+            android:layout_height="match_parent"
+            android:text="검색하기" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/search"
@@ -137,16 +139,34 @@
         android:layout_width="wrap_content"
         android:layout_height="0.8dp"
         android:background="#a0a0a0" /><!--줄긋기-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
 
+        <TextView
+            android:background="#f59300"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColorHighlight="#000000"
+            android:textColor="#000000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Missing"/>
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recylerView"
+            android:id="@+id/recyclerViewAll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+    <TextView
+        android:gravity="center"
+        android:textStyle="bold"
+        android:background="#d4ff44"
+        android:textColor="#0080ff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="MissYou"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAll2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    </LinearLayout>
+
 
 </LinearLayout>
+    </androidx.core.widget.NestedScrollView>

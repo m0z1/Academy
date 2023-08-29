@@ -49,5 +49,15 @@ public class FindBoard {
 	  
 	@OneToMany(mappedBy = "findboard") 
 	private List<Comment> comment;
-
+	
+	public void findBoardUpdate(FindBoard findBoard) {
+		this.breed = findBoard.getBreed();
+		this.content = findBoard.getContent();
+		this.petname = findBoard.getPetname();
+		this.petage = findBoard.getPetage();
+		this.petgender = findBoard.getPetgender();
+		this.petcharacter = findBoard.getPetcharacter();
+		this.petcategory = findBoard.getPetcategory();
+		this.findaddr = findBoard.getFindaddr();
+	}
 }

@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,6 +42,10 @@ public class FindBoardActivity extends AppCompatActivity {
         binding = ActivityFindBoardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        SharedPreferences sharedPreferences = getSharedPreferences("autoLogin", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+
+
         filePathList.add(null);
         filePathList.add(null);
         filePathList.add(null);
@@ -70,15 +75,8 @@ public class FindBoardActivity extends AppCompatActivity {
 
             for (int i = 0; i < filePathList.size(); ++i) {
                 if(filePathList.get(i)!=null){
-                    Cursor cursor = getContentResolver().query(filePathList.get(i),null,null,null,null);
-                    cursor.moveToNext();
-                    String path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
-                    cursor.close();
 
-                    Log.d("addList", path);
-                    Log.d("addList", path);
-
-                    File imgFile = new File(path);
+                    File imgFile = new File(getRealPathFromURI(filePathList.get(i)));
                     RequestBody fileRequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), imgFile);
                     MultipartBody.Part filePart = MultipartBody.Part.createFormData("imgFile", imgFile.getName(), fileRequestBody);
 
@@ -116,13 +114,11 @@ public class FindBoardActivity extends AppCompatActivity {
 
 
             BoardInterface boardInterFace = BoardClient.getInstance().getBoardInterface();
-            Call<String> call = boardInterFace.saveFindBoard(imgFileList,map);
+            Call<String> call = boardInterFace.saveFindBoard(imgFileList,map,username);
             call.enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
                     Log.d("FindBoard 등록 Response", "등록성공");
-                    Intent intent = new Intent(getApplicationContext(), FindBoardList.class);
-                    startActivity(intent);
                     finish();
                 }
 
@@ -169,6 +165,26 @@ public class FindBoardActivity extends AppCompatActivity {
                 Log.d("img3", uri.getPath());
             }
         }
+    }
+
+    private String getRealPathFromURI(Uri contentURI) {
+
+        String result;
+
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+
+        }
+
+        return result;
+
     }
 
 }

@@ -5,11 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -51,6 +53,8 @@ public class FindCommentList extends AppCompatActivity {
         btnBack2 = findViewById(R.id.btnBack2);
 
 
+        SharedPreferences sharedPreferences = getSharedPreferences("autoLogin", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
 
         //리사이클러 뷰 어댑터 연결
         commentList = new ArrayList<>();
@@ -87,7 +91,7 @@ public class FindCommentList extends AppCompatActivity {
 
 
 
-        //댓글 리스트 받아오기(story)
+        /*//댓글 리스트 받아오기(story)
         CommentService commentService2 = CommentClient.getInstance().getCommentService();
         Call<List<Comment>> call2 = commentService.findAllByFindId(storyId);
         call2.enqueue(new Callback<List<Comment>>() {
@@ -104,7 +108,7 @@ public class FindCommentList extends AppCompatActivity {
             public void onFailure(Call<List<Comment>> call, Throwable t) {
                 Log.d("검색 실패", ""+commentList);
             }
-        });
+        });*/
 
 
         //댓글 추가 (find)
@@ -113,19 +117,20 @@ public class FindCommentList extends AppCompatActivity {
             public void onClick(View view) {
                 // Log.d("findId", ""+findId);
                 Comment comment = new Comment();
-                comment.setMember_id(Long.parseLong(1+""));
                 comment.setContent(edComment.getText().toString());
-                comment.setFind_id(findId);
+                /*comment.setFind_id(findId);*/
 
                 CommentService commentService1 = CommentClient.getInstance().getCommentService();
-                Call<Comment> call1 = commentService1.insert(comment, findId);
+                Call<Comment> call1 = commentService1.insert(comment, findId, username);
                 call1.enqueue(new Callback<Comment>() {
                     @Override
                     public void onResponse(Call<Comment> call, Response<Comment> response) {
                         edComment.setText("");
-                        if(findId.equals(comment.getFind_id())){
-                            findCommentAdapter.addItem(response.body());
-                        }
+                        //if(findId.equals(response.body().getFindBoard().getFindId())){
+                            commentList.add(response.body());
+                            findCommentAdapter.notifyDataSetChanged();
+
+                        //}
                         Toast.makeText(getApplicationContext(), "댓글 작성 완료", Toast.LENGTH_SHORT).show();
                     }
 

@@ -63,6 +63,7 @@ public class MemberController {
 	
 	@GetMapping("/findmember/{username}")
 	public Member findmember(@PathVariable String username) {
+		System.out.println(username);
 		return memberService.findmember(username);
 	}
 	

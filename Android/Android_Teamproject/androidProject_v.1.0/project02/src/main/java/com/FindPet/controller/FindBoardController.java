@@ -15,9 +15,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.FindPet.model.FindBoard;
 import com.FindPet.model.ImgFile;
+import com.FindPet.model.Member;
 import com.FindPet.repository.ImgRepository;
 import com.FindPet.service.FindBoardService;
 import com.FindPet.service.ImgService;
+import com.FindPet.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,15 +32,19 @@ public class FindBoardController {
 	private String imgLocation;
 	private final ImgService imgService;
 	private final ImgRepository imgRepository;
-
+	private final MemberService memberService;
 	private final FindBoardService findBoardService;
 
+	//입력
 	@PostMapping("insert")
 	public String insert(@RequestParam(value = "imgFile", required = false) List<MultipartFile> imgFileList,
-			FindBoard findBoard) {
+			FindBoard findBoard, String username) {
 
 		System.out.println("insert");
-
+		System.out.println(username);
+		
+		findBoard.setMember(memberService.findmember(username.replaceAll("\"", "")));
+		
 		FindBoard findBoard2 = findBoardService.insert(findBoard);
 		if (imgFileList != null) {
 			for (int i = 0; i < imgFileList.size(); i++) {
@@ -70,9 +76,22 @@ public class FindBoardController {
 	}
 
 	// 수정
-	@PostMapping("/update")
-	public FindBoard update(@RequestBody FindBoard findBoard) {
-		return findBoardService.update(findBoard);
+	@PostMapping("update")
+	public FindBoard update( 
+			@RequestParam(value="imgFile", required = false) List<MultipartFile> imgFileList,
+			FindBoard findBoard) {
+
+
+            try {
+				FindBoard findBoard0 = findBoardService.update(findBoard, imgFileList);
+				System.out.println("update FindBoard : " + findBoard0.getFindId());
+				return findBoard0;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
+            
 	}
 
 	// 삭제
@@ -84,7 +103,7 @@ public class FindBoardController {
 	// 전체보기 (페이지, 검색 x)
 	@GetMapping("/list")
 	public List<FindBoard> find_list() {
-		return findBoardService.find_list();
+		return findBoardService.Find_list();
 	}
 
 	@GetMapping("findDog/{petcategory}")
