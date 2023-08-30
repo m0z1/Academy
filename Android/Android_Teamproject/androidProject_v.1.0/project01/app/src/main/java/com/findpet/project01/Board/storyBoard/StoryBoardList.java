@@ -115,7 +115,7 @@ public class StoryBoardList extends AppCompatActivity {
         });
 
         //스토리 게시판으로 가는 버튼
-        binding.Story.setOnClickListener(new View.OnClickListener() {
+        binding.StoryImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), StoryBoardList.class);
@@ -124,7 +124,7 @@ public class StoryBoardList extends AppCompatActivity {
         });
 
         //보호소 게시판으로 가는 버튼
-        binding.protect.setOnClickListener(new View.OnClickListener() {
+        binding.Shelter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ShelterBoardList.class);

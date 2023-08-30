@@ -219,7 +219,7 @@ public class Main extends AppCompatActivity {
         });
 
         //보호소 게시판으로 가는 버튼
-        binding.protect.setOnClickListener(new View.OnClickListener() {
+        binding.Shelter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ShelterBoardList.class);

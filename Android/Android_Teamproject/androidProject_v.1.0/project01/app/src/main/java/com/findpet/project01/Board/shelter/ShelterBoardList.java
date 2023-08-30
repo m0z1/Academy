@@ -157,7 +157,7 @@ public class ShelterBoardList extends AppCompatActivity{
         });
 
         //보호소 게시판으로 가는 버튼
-        binding.protect.setOnClickListener(new View.OnClickListener() {
+        binding.ShelterImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ShelterBoardList.class);
@@ -179,18 +179,18 @@ public class ShelterBoardList extends AppCompatActivity{
                 //filteredList.clear();
                 if (searchText.equals("")) {
                     shelterAdapter.listFilter(shelterList);
-                    binding.searchresult.setVisibility(View.INVISIBLE);
+                    binding.txtest.setVisibility(View.INVISIBLE);
                 } else {
                     for (int iint = 0; iint < shelterList.size(); iint++) {
                         if (shelterList.get(iint).getKindCd().contains(searchText)) {
                             filteredList.add(shelterList.get(iint));
-                            binding.searchresult.setVisibility(View.INVISIBLE);
+                            binding.txtest.setVisibility(View.INVISIBLE);
                             Log.i("filteredList 사이즈: ", ""+filteredList.size());
                         }
                         else if(filteredList.size()==0){
                             Log.i("filteredList 사이즈: ", ""+filteredList.size());
-                            binding.searchresult.setVisibility(View.VISIBLE);
-                            binding.searchresult.setText("검색 결과가 없습니다.");
+                            binding.txtest.setVisibility(View.VISIBLE);
+                            binding.txtest.setText("검색 결과가 없습니다.");
                             //Toast.makeText(getApplicationContext(), "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show();
                             //return;
                         }

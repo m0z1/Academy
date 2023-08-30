@@ -64,7 +64,7 @@ public class MissyouBoardList extends AppCompatActivity {
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MissyouBoardList.this,LinearLayoutManager.VERTICAL,false);
-        recyclerView = findViewById(R.id.recylerViewMissing);
+        recyclerView = findViewById(R.id.recylerviewMissyou);
         Log.d("linearLayoutManager",linearLayoutManager+"" );
         missingList = new ArrayList<>();
         missyouAdapter = new MissyouAdapter(missingList);
@@ -149,6 +149,10 @@ public class MissyouBoardList extends AppCompatActivity {
                 Call<List<MissingBoard>> call = boardInterface.MissingDog(dog);
 
                 missyouAdapter.removeAllItem(missingList);
+
+                DogFindbtn.setSelected(true);
+                CatFindbtn.setSelected(false);
+                EtcFindbtn.setSelected(false);
                 call.enqueue(new Callback<List<MissingBoard>>() {
                     @Override
                     public void onResponse(Call<List<MissingBoard>> call, Response<List<MissingBoard>> response) {
@@ -176,6 +180,9 @@ public class MissyouBoardList extends AppCompatActivity {
                 BoardInterface boardInterface = BoardClient.getInstance().getBoardInterface();
                 Call<List<MissingBoard>> call = boardInterface.MissingCat(Cat);
                 missyouAdapter.removeAllItem(missingList);
+                DogFindbtn.setSelected(false);
+                CatFindbtn.setSelected(true);
+                EtcFindbtn.setSelected(false);
                 call.enqueue(new Callback<List<MissingBoard>>() {
                     @Override
                     public void onResponse(Call<List<MissingBoard>> call, Response<List<MissingBoard>> response) {
@@ -201,6 +208,9 @@ public class MissyouBoardList extends AppCompatActivity {
                 BoardInterface boardInterface = BoardClient.getInstance().getBoardInterface();
                 Call<List<MissingBoard>> call = boardInterface.MissingEtc(etc);
                 missyouAdapter.removeAllItem(missingList);
+                DogFindbtn.setSelected(false);
+                CatFindbtn.setSelected(false);
+                EtcFindbtn.setSelected(true);
 
                 call.enqueue(new Callback<List<MissingBoard>>() {
                     @Override
@@ -239,7 +249,7 @@ public class MissyouBoardList extends AppCompatActivity {
         });
 
         // 실종 주인 게시판으로 가는 버튼
-        binding.goTomissyou.setOnClickListener(new View.OnClickListener() {
+        binding.missyou.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MissyouBoardList.class);
@@ -257,7 +267,7 @@ public class MissyouBoardList extends AppCompatActivity {
         });
 
         //보호소 게시판으로 가는 버튼
-        binding.protect.setOnClickListener(new View.OnClickListener() {
+        binding.Shelter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ShelterBoardList.class);

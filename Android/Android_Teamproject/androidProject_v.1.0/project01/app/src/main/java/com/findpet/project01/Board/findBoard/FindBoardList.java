@@ -164,6 +164,9 @@ public class FindBoardList extends AppCompatActivity {
                 String dog = "강아지";
                 BoardInterface boardInterface = BoardClient.getInstance().getBoardInterface();
                 Call<List<FindBoard>> call = boardInterface.findDog(dog);
+                DogFindbtn.setSelected(true);
+                CatFindbtn.setSelected(false);
+                EtcFindbtn.setSelected(false);
 
                 findAdapter.removeAllItem(findList);
                 call.enqueue(new Callback<List<FindBoard>>() {
@@ -193,6 +196,9 @@ public class FindBoardList extends AppCompatActivity {
                 BoardInterface boardInterface = BoardClient.getInstance().getBoardInterface();
                 Call<List<FindBoard>> call = boardInterface.findCat(Cat);
                 findAdapter.removeAllItem(findList);
+                DogFindbtn.setSelected(false);
+                CatFindbtn.setSelected(true);
+                EtcFindbtn.setSelected(false);
                 call.enqueue(new Callback<List<FindBoard>>() {
                     @Override
                     public void onResponse(Call<List<FindBoard>> call, Response<List<FindBoard>> response) {
@@ -218,6 +224,9 @@ public class FindBoardList extends AppCompatActivity {
                 BoardInterface boardInterface = BoardClient.getInstance().getBoardInterface();
                 Call<List<FindBoard>> call = boardInterface.findEtc(etc);
                 findAdapter.removeAllItem(findList);
+                DogFindbtn.setSelected(false);
+                CatFindbtn.setSelected(false);
+                EtcFindbtn.setSelected(true);
 
                 call.enqueue(new Callback<List<FindBoard>>() {
                     @Override
@@ -247,7 +256,7 @@ public class FindBoardList extends AppCompatActivity {
         });
 
         // 발견자 게시판으로 가는 버튼
-        binding.goTomissing.setOnClickListener(new View.OnClickListener() {
+        binding.missing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), FindBoardList.class);
@@ -274,7 +283,7 @@ public class FindBoardList extends AppCompatActivity {
         });
 
         //보호소 게시판으로 가는 버튼
-        binding.protect.setOnClickListener(new View.OnClickListener() {
+        binding.Shelter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ShelterBoardList.class);
