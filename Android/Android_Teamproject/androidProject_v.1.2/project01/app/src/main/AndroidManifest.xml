@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".account.kakaoapp"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Project01"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".Intro"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".account.MemberInfo"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".account.Join"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Main"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".account.Login"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" -->
+                <data
+                    android:host="oauth"
+                    android:scheme="kakaoa0b0ba75b281cc409f20442a8b7e5744" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Board.storyBoard.StoryBoardUpdate"
+            android:exported="false" />
+        <activity
+            android:name=".Board.shelter.ShelterBoardList"
+            android:exported="false" />
+        <activity
+            android:name=".Board.shelter.ShelterBoardDetail"
+            android:exported="false" />
+        <activity
+            android:name=".Board.storyBoard.StoryCommentList"
+            android:exported="false" />
+        <activity
+            android:name=".Board.storyBoard.StoryBoardDetail"
+            android:exported="false" />
+        <activity
+            android:name=".Board.missingBoard.MissyouCommentList"
+            android:exported="false" />
+        <activity
+            android:name=".Board.missingBoard.MissyouBoardUpdate"
+            android:exported="false" />
+        <activity
+            android:name=".Board.missingBoard.MissyouBoardDetail"
+            android:exported="false" />
+        <activity
+            android:name=".Board.findBoard.FindBoardList"
+            android:exported="false" />
+        <activity
+            android:name=".Board.missingBoard.MissyouBoardList"
+            android:exported="false" />
+        <activity
+            android:name=".Board.storyBoard.StoryBoardList"
+            android:exported="false" />
+        <activity
+            android:name=".Board.storyBoard.StoryBoardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Board.missingBoard.MissingBoardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Board.findBoard.FindBoardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Board.findBoard.FindBoardUpdate"
+            android:exported="false" />
+        <activity
+            android:name=".Board.findBoard.FindCommentList"
+            android:exported="false" />
+        <activity
+            android:name=".Board.findBoard.FindBoardDetail"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
