@@ -1,0 +1,26 @@
+<p><a href="../readme.html">목록으로 돌아가기</a></p>
+<h2 id="맥-개발환경-구축-page-16">맥 개발환경 구축 (page 16)</h2>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">brew</span> install node
+$ <span class="kw">brew</span> install mongodb</code></pre>
+<h2 id="리눅스-개발환경-구축-page-17">리눅스 개발환경 구축 (page 17)</h2>
+<p>[[Ubuntu 18.04 기준]]</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">echo</span> <span class="st">&quot;deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/</span>
+<span class="st">mongodb-org/4.0 multiverse&quot;</span> <span class="kw">|</span> <span class="kw">sudo</span> tee /etc/apt/sources.list.d/mongodborg-
+<span class="kw">4.0.list</span></code></pre>
+<p>[[Ubuntu 16.04 기준]]</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">echo</span> <span class="st">&quot;deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu</span>
+<span class="st">xenial/mongodb-org/4.0 multiverse&quot;</span> <span class="kw">|</span> <span class="kw">sudo</span> tee /etc/apt/sources.list.d/
+<span class="kw">mongodb-org-4.0.list</span></code></pre>
+<p>[[Ubuntu 14.04 기준]]</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">echo</span> <span class="st">&quot;deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu trusty/</span>
+<span class="st">mongodb-org/4.0 multiverse&quot;</span> <span class="kw">|</span> <span class="kw">sudo</span> tee /etc/apt/sources.list.d/mongodborg-
+<span class="kw">4.0.list</span></code></pre>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">sudo</span> apt-get update
+$ <span class="kw">sudo</span> apt-get install -y mongodb-org</code></pre>
+<h2 id="mongodb-서비스-등록-page-20">MongoDB 서비스 등록 (page 20)</h2>
+<pre><code>$ sudo apt-get install curl
+$ curl -o /etc/init.d/mongod
+https://raw.githubusercontent.com/mongodb/mongo/master/debian/init.d
+$ chmod 755 /etc/init.d/mongod
+$ systemctl enable mongod</code></pre>
+<p><a href="../readme.html">목록으로 돌아가기</a></p>
