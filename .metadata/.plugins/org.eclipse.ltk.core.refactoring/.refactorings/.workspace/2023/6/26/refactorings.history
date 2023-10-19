@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
-<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;SpringProject06&apos;" deleteContents="true" description="Delete resource &apos;SpringProject06&apos;" element1="/SpringProject06" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1687831998479"/>&#x0A;<refactoring comment="Delete resource &apos;SpringProject06_Guest&apos;" deleteContents="true" description="Delete resource &apos;SpringProject06_Guest&apos;" element1="/SpringProject06_Guest" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1687840545662"/>
-=======
-<session version="1.0">
-<refactoring comment="Delete resource &apos;SpringProject06_Guest&apos;" deleteContents="true" description="Delete resource &apos;SpringProject06_Guest&apos;" element1="/SpringProject06_Guest" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1687913188639"/>
->>>>>>> 91d3bb6 (2023_06_28_10_26)
-</session>
